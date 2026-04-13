@@ -9,51 +9,113 @@
         :root {
             --neon-cyan: #64ffda;
             --dark-bg: #020c1b;
-            --panel-bg: #112240;
+            --panel-bg: rgba(17, 34, 64, 0.85); /* 调成半透明，透出背景图 */
             --text-main: #ccd6f6;
             --text-muted: #8892b0;
+            --alert-red: #ff4d4d;
         }
-        body { background-color: var(--dark-bg); color: var(--text-main); margin: 0; padding: 20px; font-family: 'Courier New', Courier, monospace; line-height: 1.6; }
-        .dashboard { max-width: 1000px; margin: 0 auto; }
+        
+        /* 💥 核心修改：增加全屏背景图与暗色遮罩 💥 */
+        body { 
+            /* 这里的 bg-william.jpg 就是您要准备的背景图，前面的 rgba 是为了加一层黑色半透明遮罩，保证文字清晰 */
+            background: linear-gradient(rgba(2, 12, 27, 0.85), rgba(2, 12, 27, 0.85)), url('bg-william.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 20px; 
+            font-family: 'Courier New', Courier, monospace; 
+            line-height: 1.6; 
+        }
+        
+        .dashboard { max-width: 900px; margin: 0 auto; }
         
         /* 顶部导航与档案 */
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-cyan); padding-bottom: 15px; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
-        .back-home { display: inline-flex; align-items: center; gap: 10px; padding: 8px 15px; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); text-decoration: none; font-size: 0.9rem; border-radius: 4px; transition: all 0.3s; background: rgba(100, 255, 218, 0.05); }
-        .back-home:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 10px var(--neon-cyan); }
+        .back-home { display: inline-flex; align-items: center; gap: 10px; padding: 8px 15px; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); text-decoration: none; font-size: 0.9rem; border-radius: 4px; transition: all 0.3s; background: rgba(100, 255, 218, 0.05); backdrop-filter: blur(5px); }
+        .back-home:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 15px var(--neon-cyan); }
         .back-home img { width: 24px; height: 24px; border-radius: 50%; }
         .agent-status { text-align: right; font-size: 0.9rem; }
         .agent-status span { color: var(--neon-cyan); font-weight: bold; }
 
-        /* 核心任务区 */
-        .active-mission { background: var(--panel-bg); border: 1px solid #233554; border-radius: 8px; padding: 25px; margin-bottom: 30px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        /* 任务运行中的扫描线动画特效 */
-        .active-mission::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); animation: scanline 3s linear infinite; opacity: 0.5; }
-        @keyframes scanline { 0% { top: 0; } 100% { top: 100%; } }
+        /* 面板通用样式 */
+        .panel { background: var(--panel-bg); border: 1px solid #233554; border-radius: 8px; padding: 25px; margin-bottom: 30px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .mission-title { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border-bottom: 1px dashed #233554; padding-bottom: 15px;}
+        .pulse-dot { width: 12px; height: 12px; background: var(--alert-red); border-radius: 50%; box-shadow: 0 0 10px var(--alert-red); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); } }
 
-        .mission-title { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .pulse-dot { width: 10px; height: 10px; background: #ff4d4d; border-radius: 50%; box-shadow: 0 0 10px #ff4d4d; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); } }
-
-        .mission-content { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; border: 1px solid #233554; }
+        /* 视频容器 */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; border: 1px solid var(--neon-cyan); margin-bottom: 20px; box-shadow: 0 0 20px rgba(100,255,218,0.1);}
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         
-        .briefing { background: rgba(2, 12, 27, 0.7); padding: 15px; border-radius: 6px; border-left: 4px solid var(--neon-cyan); }
+        .briefing { background: rgba(2, 12, 27, 0.7); padding: 15px; border-radius: 6px; border-left: 4px solid var(--alert-red); margin-bottom: 20px;}
         
-        /* 提交通道 */
-        .upload-terminal { background: var(--panel-bg); border-radius: 8px; padding: 25px; border: 1px dashed var(--text-muted); }
-        .upload-terminal h3 { color: var(--neon-cyan); margin-top: 0; }
-        .form-container iframe { width: 100%; height: 500px; border: none; border-radius: 6px; background: white; } /* 表单背景设为白色以适配第三方工具 */
+        /* 原生表单样式（黑客终端风） */
+        .task-block { margin-bottom: 25px; border-left: 2px solid #233554; padding-left: 15px; }
+        .task-title { color: var(--neon-cyan); font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .task-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+        
+        .cipher-input { 
+            background: rgba(2, 12, 27, 0.8); 
+            border: 1px solid #233554; 
+            color: var(--neon-cyan); 
+            padding: 8px 12px; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 1rem; 
+            border-radius: 4px; 
+            outline: none; 
+            transition: all 0.3s;
+            width: 150px;
+            text-align: center;
+        }
+        .cipher-input:focus { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(100, 255, 218, 0.3); }
+        
+        .cipher-textarea {
+            width: 100%;
+            background: rgba(2, 12, 27, 0.8); 
+            border: 1px solid #233554; 
+            color: var(--neon-cyan); 
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 1rem; 
+            border-radius: 4px; 
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+        }
+        .cipher-textarea:focus { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(100, 255, 218, 0.3); }
 
-        /* 历史存档区 */
-        .archive-section { margin-top: 40px; border-top: 1px solid #233554; padding-top: 20px; }
-        .archive-item { padding: 10px; border-bottom: 1px solid #233554; color: var(--text-muted); display: flex; justify-content: space-between; }
-        .archive-item:hover { background: rgba(100, 255, 218, 0.05); color: var(--text-main); cursor: pointer; }
+        .hint-text { color: #e9c46a; font-size: 0.85rem; font-style: italic; margin-top: 5px; }
+
+        /* 发射按钮 */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .submit-btn:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 20px var(--neon-cyan); }
+        
+        /* 提交后的状态 */
+        .submit-btn.transmitting { background: var(--text-muted); border-color: var(--text-muted); color: var(--dark-bg); pointer-events: none; animation: blink 1s infinite; }
+        .submit-btn.success { background: #4cd137; border-color: #4cd137; color: var(--dark-bg); box-shadow: 0 0 20px #4cd137; pointer-events: none; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         /* 手机端适配 */
         @media (max-width: 768px) {
             .header { flex-direction: column; align-items: flex-start; }
             .agent-status { text-align: left; margin-top: 10px; }
+            .cipher-input { width: 100%; margin-top: 10px; }
         }
     </style>
 </head>
@@ -67,46 +129,83 @@
             </a>
             <div class="agent-status">
                 <div>身份识别: <span>AGENT WILLIAM</span></div>
-                <div>安全等级: <span>LEVEL 1 (见习观察员)</span></div>
-                <div>系统状态: <span style="color: #4cd137;">在线</span></div>
+                <div>安全等级: <span>LEVEL 1 (见习特工)</span></div>
+                <div>系统状态: <span style="color: #4cd137;">加密信道已连接</span></div>
             </div>
         </header>
 
-        <section class="active-mission">
+        <section class="panel">
             <div class="mission-title">
                 <div class="pulse-dot"></div>
-                <h2 style="margin:0; color: white;">ACTIVE MISSION: 001 - 破译超级工程</h2>
+                <h2 style="margin:0; color: white;">ACTIVE MISSION: 代号“超级大桥”</h2>
             </div>
             
-            <div class="mission-content">
-                <div class="briefing">
-                    <strong style="color: var(--neon-cyan);">▶ 情报简报：</strong><br>
-                    特工 William，本次任务需要你潜入花江大峡谷。请仔细观看影像资料，注意解说员使用了什么“超级参照物”来替换枯燥的数字。
-                </div>
+            <div class="briefing">
+                <strong style="color: var(--alert-red);">⚠️ 特工守则：</strong><br>
+                本周日的“冬冬姨写作课”即将开启一场超级工程大冒险！你的任务不是背诵，而是“竖起耳朵，睁大眼睛”，抓捕隐藏在里面的“文字怪兽”！请带着下方的机密清单完成侦察。
+            </div>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="YouTube video player" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2 style="color: var(--neon-cyan); border-bottom: 1px solid #233554; padding-bottom: 15px; margin-bottom: 25px;">📡 终端机密录入面板</h2>
+
+            <div class="task-block">
+                <div class="task-title">🎯 任务一：破译“画面替换术” (寻找超级参照物)</div>
+                <div class="task-desc">普通的观察员只会用干巴巴的数字报告情况，但顶级的工程师特工懂得使用“画面替换术”！解说员为了让我们感受到大桥的震撼，偷偷把无聊的数字替换成了酷炫的画面。找出他的替换密码：</div>
                 
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="YouTube video player" allowfullscreen></iframe>
+                <p>1. 桥非常“高”（625米）：从桥面上 <input type="text" class="cipher-input" placeholder="输入4字动作">，都要用上整整 11 秒！</p>
+                <p>2. 地基非常“深”（68米）：相当于把一栋 <input type="text" class="cipher-input" placeholder="填入建筑物"> 埋进了地下。</p>
+                <p>3. 钢铁主梁非常“重”：相当于 95 架 <input type="text" class="cipher-input" placeholder="超级交通工具"> 加在一起。</p>
+                <div class="hint-text">🔒 冬冬姨的暗号：写作文时，学会用大家熟悉的庞然大物来做对比，你的文字就会有 3D 电影的感觉！</div>
+            </div>
+
+            <div class="task-block">
+                <div class="task-title">🎯 任务二：抓捕“超能力动词” (寻找动作)</div>
+                <div class="task-desc">普通的词汇没有力量，只有抓到“超能力动词”，你的作文才能动起来。请在视频里听一听，解说员是用哪个厉害的词？</div>
+                
+                <p>1. 水流像一把巨大的刀一样，把大山给 <input type="text" class="cipher-input" placeholder="输入2字"> 出了一道道深谷。<br>
+                <span class="hint-text">(提示：视频 1 分 20 秒左右，感觉很锋利)</span></p>
+                
+                <p>2. 桥塔像一棵大树一样，每天以 0.8 米的速度向上 <input type="text" class="cipher-input" placeholder="输入2字">。<br>
+                <span class="hint-text">(提示：视频 3 分 30 秒左右，感觉有生命力)</span></p>
+            </div>
+
+            <div class="task-block">
+                <div class="task-title">🎯 任务三：特工的现实试炼 (脑洞大开)</div>
+                <div class="task-desc">
+                    【挑战要求】在家里或小区里，寻找一个你觉得“很大”或者“很重”的物体。试着用一句话把它写下来，<strong>绝对不能使用“大”、“高”或“重”这三个字！</strong>
                 </div>
+                <textarea class="cipher-textarea" placeholder="在此录入你的特工笔记... (想想视频里是怎么形容的？去找个东西和它比一比！)"></textarea>
             </div>
-        </section>
 
-        <section class="upload-terminal">
-            <h3>📡 情报数据上传接口</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">请在下方终端录入你破译的“画面替换术”密码。确认无误后点击发射。</p>
-            
-            <div class="form-container">
-                <iframe src="您的表单链接?transparentBackground=1"></iframe>
-            </div>
+            <button class="submit-btn" id="transmitBtn" onclick="transmitData()">[点击执行] 发射情报至总部</button>
         </section>
-
-        <section class="archive-section">
-            <h3 style="color: var(--text-muted);">📁 已解密档案室 (ARCHIVES)</h3>
-            <div class="archive-item">
-                <span>[系统提示]</span>
-                <span>暂无历史任务，期待特工凯旋。</span>
-            </div>
-            </section>
 
     </div>
+
+    <script>
+        function transmitData() {
+            const btn = document.getElementById('transmitBtn');
+            // 阶段一：传输中
+            btn.classList.add('transmitting');
+            btn.innerHTML = '正在加密打包数据... [ENCRYPTING]';
+            
+            // 模拟 2 秒的网络传输延迟
+            setTimeout(() => {
+                btn.classList.remove('transmitting');
+                btn.classList.add('success');
+                btn.innerHTML = '✅ 情报已安全送达总部！(MISSION ACCOMPLISHED)';
+                
+                // 弹出特工表彰弹窗
+                setTimeout(() => {
+                    alert('特工 William，冬冬姨已在指挥中心收到你的机密情报！期待周日的正式碰头！');
+                }, 500);
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
