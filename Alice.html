@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>创意艺术工作室 - Alice</title>
+    <style>
+        :root { --primary-red: #ff4d6d; --accent-purple: #7209b7; --soft-blue: #4cc9f0; --warm-orange: #f77f00; }
+        body { background: #fff5f5; color: #2b2d42; margin: 0; padding: 40px; font-family: 'PingFang SC', serif; overflow-x: hidden; position: relative; }
+        
+        /* 动态背景 */
+        .bg-blobs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; filter: blur(80px); opacity: 0.6; }
+        .blob { position: absolute; border-radius: 50%; animation: move 20s infinite alternate; }
+        .blob1 { width: 400px; height: 400px; background: var(--primary-red); top: -100px; left: -100px; }
+        .blob2 { width: 500px; height: 500px; background: var(--accent-purple); bottom: -150px; right: -100px; animation-duration: 25s; }
+        .blob3 { width: 300px; height: 300px; background: var(--soft-blue); top: 20%; right: 10%; animation-duration: 18s; }
+        .blob4 { width: 350px; height: 350px; background: var(--warm-orange); bottom: 10%; left: 15%; animation-duration: 22s; }
+        @keyframes move { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(100px, 50px) rotate(30deg); } }
+
+        .container { max-width: 1000px; margin: 0 auto; position: relative; }
+        
+        /* 统一带头像的返回按钮 */
+        .nav-back { display: inline-flex; align-items: center; gap: 10px; padding: 10px 25px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); border-radius: 50px; color: #7209b7; text-decoration: none; font-weight: bold; border: 1px solid rgba(255, 255, 255, 0.4); margin-bottom: 30px; transition: transform 0.3s; }
+        .nav-back:hover { transform: translateX(-5px); background: white; }
+        .nav-back img { width: 28px; height: 28px; border-radius: 50%; }
+
+        .header { text-align: center; margin-bottom: 40px; }
+        h1 { font-size: 3rem; background: linear-gradient(45deg, #ff0a54, #7209b7, #4cc9f0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); border-radius: 24px; padding: 40px; backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .instruction { font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; color: #4a4a4a; }
+        iframe { width: 100%; height: 800px; border: none; border-radius: 16px; background: white; }
+    </style>
+</head>
+<body>
+    <div class="bg-blobs">
+        <div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div><div class="blob blob4"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            <img src="logo.png" alt="logo">
+            🏡 返回主页基地
+        </a>
+
+        <header class="header">
+            <h1>灵感色彩工作室</h1>
+            <p>在这里，每一行文字都是一抹颜色。</p>
+        </header>
+
+        <main class="glass-card">
+            <div class="instruction">
+                <strong>本周任务：</strong> 拆解星球研究所的镜头美学，并将这种“视觉震撼”转化为你的文字笔触。
+            </div>
+            <iframe src="你的表单或Notion链接"></iframe>
+        </main>
+    </div>
+</body>
+</html>
