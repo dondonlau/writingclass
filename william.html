@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>特工终端 - William</title>
     <style>
+        /* 基础特工暗黑风 */
         :root {
             --neon-cyan: #64ffda;
             --dark-bg: #020c1b;
@@ -15,40 +16,43 @@
         }
         
         body { 
-            margin: 0; padding: 20px; min-height: 100vh;
-            background: linear-gradient(rgba(2, 12, 27, 0.8), rgba(2, 12, 27, 0.8)), url('bg-william.jpg') no-repeat center center fixed; 
+            background: linear-gradient(rgba(2, 12, 27, 0.85), rgba(2, 12, 27, 0.85)), url('bg-william.jpg') no-repeat center center fixed; 
             background-size: cover;
-            color: var(--text-main); font-family: 'Courier New', Courier, monospace; line-height: 1.6; 
+            color: var(--text-main); margin: 0; padding: 20px; font-family: 'Courier New', Courier, monospace; line-height: 1.6; 
         }
         
         .dashboard { max-width: 900px; margin: 0 auto; }
         
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-cyan); padding-bottom: 15px; margin-bottom: 30px; }
-        .back-home { display: inline-flex; align-items: center; gap: 10px; padding: 8px 15px; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); text-decoration: none; font-size: 0.9rem; border-radius: 4px; transition: 0.3s; background: rgba(100, 255, 218, 0.05); }
+        .back-home { display: inline-flex; align-items: center; gap: 10px; padding: 8px 15px; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); text-decoration: none; font-size: 0.9rem; border-radius: 4px; transition: all 0.3s; background: rgba(100, 255, 218, 0.05); }
         .back-home:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 15px var(--neon-cyan); }
         .back-home img { width: 24px; height: 24px; border-radius: 50%; }
 
         .panel { background: var(--panel-bg); border: 1px solid #233554; border-radius: 8px; padding: 25px; margin-bottom: 30px; backdrop-filter: blur(10px); }
         
-        .section-title { color: var(--neon-cyan); font-weight: bold; font-size: 1.4rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--neon-cyan); padding-left: 15px; }
-        
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; border: 1px solid var(--neon-cyan); margin-bottom: 30px; }
+        .mission-title { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border-bottom: 1px dashed #233554; padding-bottom: 15px;}
+        .pulse-dot { width: 12px; height: 12px; background: var(--alert-red); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); } }
+
+        .briefing { background: rgba(2, 12, 27, 0.7); padding: 15px; border-radius: 6px; border-left: 4px solid var(--alert-red); margin-bottom: 20px;}
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; border: 1px solid var(--neon-cyan); margin-bottom: 20px; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         
-        .task-card { background: rgba(2, 12, 27, 0.7); border: 1px solid #233554; padding: 20px; border-radius: 6px; margin-bottom: 20px; transition: 0.3s; }
-        .task-card:hover { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(100, 255, 218, 0.1); }
-        .q-title { color: var(--neon-cyan); font-weight: bold; margin-bottom: 10px; display: block; }
+        .task-block { margin-bottom: 35px; border-left: 2px solid #233554; padding-left: 15px; }
+        .task-title { color: var(--neon-cyan); font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .task-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
         
-        .cipher-input { background: transparent; border: none; border-bottom: 1px solid var(--neon-cyan); color: white; padding: 5px 10px; font-family: inherit; font-size: 1rem; outline: none; width: 180px; text-align: center; }
-        .cipher-textarea { width: 100%; background: rgba(2, 12, 27, 0.8); border: 1px solid #233554; color: white; padding: 12px; font-family: inherit; font-size: 1rem; border-radius: 4px; outline: none; resize: vertical; min-height: 80px; }
-        
-        .submit-btn { width: 100%; padding: 18px; background: transparent; border: 2px solid var(--neon-cyan); color: var(--neon-cyan); font-family: inherit; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 6px; transition: 0.3s; text-transform: uppercase; }
-        .submit-btn:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 20px var(--neon-cyan); }
+        .cipher-input { background: rgba(2, 12, 27, 0.8); border: none; border-bottom: 2px solid var(--neon-cyan); color: var(--neon-cyan); padding: 5px 10px; font-family: inherit; font-size: 1rem; outline: none; width: 180px; text-align: center; }
+        .cipher-textarea { width: 100%; background: rgba(2, 12, 27, 0.8); border: 1px solid #233554; color: var(--neon-cyan); padding: 12px; font-family: inherit; font-size: 1rem; border-radius: 4px; outline: none; resize: vertical; min-height: 100px; box-sizing: border-box;}
+        .hint-text { color: #e9c46a; font-size: 0.85rem; font-style: italic; margin-top: 5px; display: block;}
 
-        /* 课后作业板块风格 */
-        .post-class-panel { border-color: #e9c46a; background: rgba(233, 196, 106, 0.05); margin-top: 50px; }
-        .post-class-title { color: #e9c46a; border-left-color: #e9c46a; }
-        .post-submit { border-color: #e9c46a; color: #e9c46a; }
+        .submit-btn { width: 100%; padding: 18px; background: transparent; border: 2px solid var(--neon-cyan); color: var(--neon-cyan); font-family: inherit; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 6px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 2px; }
+        .submit-btn:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 20px var(--neon-cyan); }
+        
+        /* 课后作业特工装甲风格 */
+        .post-class-panel { border: 1px dashed #e9c46a; background: rgba(233, 196, 106, 0.05); margin-top: 50px; padding: 25px; border-radius: 8px; }
+        .post-class-title { color: #e9c46a; font-weight: bold; font-size: 1.4rem; margin-bottom: 25px; border-left: 4px solid #e9c46a; padding-left: 15px; }
+        .post-submit { border-color: #e9c46a; color: #e9c46a; margin-top: 15px; }
         .post-submit:hover { background: #e9c46a; color: var(--dark-bg); box-shadow: 0 0 20px #e9c46a; }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s; }
@@ -56,111 +60,143 @@
     </style>
 </head>
 <body>
+    <div class="dashboard">
+        
+        <header class="header">
+            <a href="index.html" class="back-home"><img src="logo.png" alt="logo">⬅ 撤退至基地</a>
+            <div style="text-align: right; font-size: 0.8rem;">AGENT: <span style="color:var(--neon-cyan)">WILLIAM</span> | STATUS: <span style="color:#4cd137">ACTIVE</span></div>
+        </header>
 
-<div class="dashboard">
-    <header class="header">
-        <a href="index.html" class="back-home"><img src="logo.png" alt="logo"><span>🏡 撤退至基地</span></a>
-        <div style="text-align: right; font-size: 0.8rem;">AGENT: <span style="color:var(--neon-cyan)">WILLIAM</span> | STATUS: <span style="color:#4cd137">ACTIVE</span></div>
-    </header>
-
-    <main class="panel">
-        <div class="section-title">📡 侦察阶段：预习情报录入</div>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="目标资料" allowfullscreen></iframe>
-        </div>
-
-        <form id="preClassForm">
-            <input type="hidden" name="身份识别" value="William (预习侦察)">
-            <input type="hidden" name="_subject" value="【情报】来自特工 William 的侦察报告">
-
-            <div class="task-card">
-                <span class="q-title">🎯 任务 1：画面替换术破译</span>
-                <p>1. 桥非常高：从桥面上 <input type="text" name="预习1_桥高动作" class="cipher-input" required placeholder="输入4字动作">，要整整 11 秒！</p>
-                <p>2. 地基非常深：相当于把一栋 <input type="text" name="预习1_地基建筑" class="cipher-input" required placeholder="填入建筑物"> 埋进了地下。</p>
+        <section class="panel">
+            <div class="mission-title">
+                <div class="pulse-dot"></div>
+                <h2 style="margin:0; color: white;">ACTIVE MISSION: 代号“超级大桥”</h2>
+            </div>
+            
+            <div class="briefing">
+                <strong style="color: var(--alert-red);">🕵️‍♂️ 工程师情报局指令：</strong><br>
+                本周日的“冬冬姨写作课”即将开启一场超级工程大冒险！在正式碰头前，你需要提前潜入一段机密影像资料中，搜集关键情报。任务不是背诵，而是抓捕隐藏在里面的“文字怪兽”！
+            </div>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="目标资料" allowfullscreen></iframe>
             </div>
 
-            <div class="task-card">
-                <span class="q-title">🎯 任务 2：超能力动词抓捕</span>
-                <p>大山被江水 <input type="text" name="预习2_水流" class="cipher-input" required placeholder="2字强动词"> 出一道道深谷。桥塔向上 <input type="text" name="预习2_桥塔" class="cipher-input" required placeholder="2字强动词">。</p>
-            </div>
+            <h2 style="color: var(--neon-cyan); border-bottom: 1px solid #233554; padding-bottom: 15px; margin-bottom: 25px;">📡 侦察阶段：预习情报录入</h2>
 
-            <button type="submit" class="submit-btn" id="preBtn">[ 发射侦察报告 ]</button>
-        </form>
+            <form id="preClassForm">
+                <input type="hidden" name="身份识别" value="William (预习侦察)">
+                <input type="hidden" name="_subject" value="【情报】来自特工 William 的侦察报告">
+                
+                <div class="task-block">
+                    <div class="task-title">🎯 任务一：破译“画面替换术” (寻找超级参照物)</div>
+                    <div class="task-desc">普通的观察员只会用干巴巴的数字报告情况，但顶级的工程师特工懂得使用“画面替换术”！请找出解说员的替换密码：</div>
+                    <p>1. 桥非常“高”（625米）：从桥面上 <input type="text" name="任务1_桥高动作" class="cipher-input" required placeholder="输入4字动作">，要整整 11 秒！</p>
+                    <p>2. 地基非常“深”（68米）：相当于把一栋 <input type="text" name="任务1_桥深建筑" class="cipher-input" required placeholder="填入建筑物"> 埋进了地下。</p>
+                    <p>3. 钢铁主梁非常“重”：相当于 95 架 <input type="text" name="任务1_桥重飞机" class="cipher-input" required placeholder="超级交通工具"> 加在一起。</p>
+                    <span class="hint-text">🔒 暗号：用大家熟悉的庞然大物做对比，文字就会有 3D 电影感！</span>
+                </div>
 
-        <div class="post-class-panel" style="margin-top: 60px; padding: 25px; border: 1px dashed #e9c46a; border-radius: 8px;">
-            <div class="section-title post-class-title">🚀 实战阶段：架构师深度课后</div>
+                <div class="task-block">
+                    <div class="task-title">🎯 任务二：抓捕“超能力动词” (寻找动作)</div>
+                    <div class="task-desc">普通的词汇没有力量，只有抓到“超能力动词”，你的作文才能动起来：</div>
+                    <p>1. 水流像一把巨大的刀，把大山给 <input type="text" name="任务2_水流动作" class="cipher-input" required placeholder="输入2字"> 出了一道道深谷。<br>
+                    <span class="hint-text">(提示：视频 1:20 左右，感觉很锋利)</span></p>
+                    <p>2. 桥塔像大树一样，每天以 0.8 米的速度向上 <input type="text" name="任务2_桥塔动作" class="cipher-input" required placeholder="输入2字">。<br>
+                    <span class="hint-text">(提示：视频 3:30 左右，感觉有生命力)</span></p>
+                </div>
+
+                <div class="task-block">
+                    <div class="task-title">🎯 任务三：特工的现实试炼 (脑洞大开)</div>
+                    <div class="task-desc">在家里或小区里找一个“很大”或“很重”的物体。试着用一句话写下来，<strong>绝对不能使用“大”、“高”或“重”这三个字！</strong></div>
+                    <textarea name="任务3_现实造句" class="cipher-textarea" required placeholder="在此录入你的特工笔记..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="preBtn">[ 点击执行 ] 发射情报至总部</button>
+            </form>
+        </section>
+
+        <div class="post-class-panel">
+            <div class="post-class-title">🚀 实战阶段：架构师深度课后</div>
             <form id="postClassForm">
                 <input type="hidden" name="身份识别" value="William (课后实战)">
                 <input type="hidden" name="_subject" value="【实战】来自特工 William 的架构报告">
 
-                <div class="task-card">
-                    <span class="q-title">🛠️ 模块 A：数据视觉化转换</span>
-                    <p style="font-size: 0.9rem; color: #8892b0;">挑战：选一件家里很重/很高的东西，用“具象化翻译术”写一句话。</p>
+                <div class="task-block">
+                    <span class="task-title" style="color: #e9c46a;">🛠️ 模块 A：数据视觉化转换</span>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">挑战：选一件家里很重或很高的东西，利用咱们课上学的“具象化翻译术”把它写出来。</p>
                     <textarea name="课后1_数据翻译" class="cipher-textarea" required placeholder="例如：这台冰箱就像一尊钢铁护卫，死死地镇守在厨房角落..."></textarea>
                 </div>
 
-                <div class="task-card">
-                    <span class="q-title">🛠️ 模块 B：起承转合逻辑合拢</span>
-                    <p style="font-size: 0.9rem; color: #8892b0;">挑战：用 Hook、展开、转折、定音的结构，写一段关于“基地（家）”的小报告。</p>
+                <div class="task-block">
+                    <span class="task-title" style="color: #e9c46a;">🛠️ 模块 B：起承转合逻辑合拢</span>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">挑战：用“起、承、转、合”的结构，写一段关于“我的基地（家或房间）”的微型报告。</p>
                     <textarea name="课后2_逻辑架构" class="cipher-textarea" required placeholder="起：我的基地看似平凡... 承：这里有... 转：但到了夜晚... 合：这就是我的避风港。"></textarea>
                 </div>
 
-                <button type="submit" class="submit-btn post-submit" id="postBtn">[ 提交架构方案 ]</button>
+                <button type="submit" class="submit-btn post-submit" id="postBtn">[ 点击提交 ] 发射架构方案</button>
             </form>
         </div>
-    </main>
-</div>
 
-<div id="successModal" class="modal-overlay">
-    <div class="modal-content" id="modalBox">
-        <span style="font-size: 4rem; display: block; margin-bottom: 20px;">⚡</span>
-        <h2 id="modalTitle" style="color: var(--neon-cyan);">同步成功！</h2>
-        <p id="modalMsg" style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px;">数据包已成功上传至总部服务器。</p>
-        <button onclick="closeModal()" style="background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 35px; border-radius: 4px; cursor: pointer;">[ 确认 ]</button>
     </div>
-</div>
 
-<script>
-    const setupForm = (formId, btnId, msg, title, icon) => {
-        const form = document.getElementById(formId);
-        const btn = document.getElementById(btnId);
-        const modal = document.getElementById('successModal');
-        const modalBox = document.getElementById('modalBox');
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content" id="modalBox">
+            <span id="modalIcon" style="font-size: 4rem; display: block; margin-bottom: 20px;">⚡</span>
+            <h2 id="modalTitle" style="color: var(--neon-cyan);">同步成功！</h2>
+            <p id="modalMsg" style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px;">数据包已成功上传至总部服务器。</p>
+            <button onclick="closeModal()" style="background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 35px; border-radius: 4px; cursor: pointer;">[ 确认退出 ]</button>
+        </div>
+    </div>
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const originalText = btn.innerText;
-            btn.innerText = 'DATA UPLOADING...';
-            btn.style.opacity = '0.7';
+    <script>
+        const setupForm = (formId, btnId, msg, title, icon) => {
+            const form = document.getElementById(formId);
+            const btn = document.getElementById(btnId);
+            const modal = document.getElementById('successModal');
+            const modalBox = document.getElementById('modalBox');
 
-            try {
-                const response = await fetch("https://formspree.io/f/mrergerg", {
-                    method: "POST",
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
-                });
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const originalText = btn.innerText;
+                btn.innerText = 'DATA UPLOADING... [ENCRYPTING]';
+                btn.style.opacity = '0.5';
 
-                if (response.ok) {
-                    form.reset();
-                    document.getElementById('modalTitle').innerText = title;
-                    document.getElementById('modalMsg').innerText = msg;
-                    document.querySelector('.modal-content span').innerText = icon;
-                    modal.style.display = 'flex';
-                    setTimeout(() => { modal.style.opacity = '1'; modalBox.style.transform = 'scale(1)'; }, 50);
+                try {
+                    const response = await fetch("https://formspree.io/f/mrergerg", {
+                        method: "POST",
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        form.reset();
+                        document.getElementById('modalTitle').innerText = title;
+                        document.getElementById('modalMsg').innerText = msg;
+                        document.getElementById('modalIcon').innerText = icon;
+                        modal.style.display = 'flex';
+                        setTimeout(() => { modal.style.opacity = '1'; modalBox.style.transform = 'scale(1)'; }, 50);
+                    } else {
+                        alert('传输信道受到干扰，请重试！');
+                    }
+                } catch (err) { 
+                    alert('网络连接中断！'); 
+                } finally { 
+                    btn.innerText = originalText; 
+                    btn.style.opacity = '1'; 
                 }
-            } catch (err) { alert('传输中断！'); }
-            finally { btn.innerText = originalText; btn.style.opacity = '1'; }
-        });
-    };
+            });
+        };
 
-    setupForm('preClassForm', 'preBtn', '特工 William，你的预习情报已成功入库。情报局期待你周日的精彩表现！', '情报已送达！', '📡');
-    setupForm('postClassForm', 'postBtn', '非常出色的架构思维！你的课后实战数据已成功同步，勋章等级提升。', '实战完成！', '🎖️');
+        // William 专属的男孩子/特工语气弹窗
+        setupForm('preClassForm', 'preBtn', '特工 William，冬冬姨已收到你的机密情报。做得好，期待周日的正式碰头！', '情报已送达！', '📡');
+        setupForm('postClassForm', 'postBtn', '非常出色的架构思维！你的课后实战数据已同步至指挥中心，特授予【终极架构师】勋章。', '实战完成！', '🎖️');
 
-    function closeModal() {
-        document.getElementById('successModal').style.opacity = '0';
-        document.getElementById('modalBox').style.transform = 'scale(0.8)';
-        setTimeout(() => { document.getElementById('successModal').style.display = 'none'; }, 400);
-    }
-</script>
+        function closeModal() {
+            document.getElementById('successModal').style.opacity = '0';
+            document.getElementById('modalBox').style.transform = 'scale(0.8)';
+            setTimeout(() => { document.getElementById('successModal').style.display = 'none'; }, 400);
+        }
+    </script>
 </body>
 </html>
