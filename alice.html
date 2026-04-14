@@ -1,184 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>创意工作室 - Alice</title>
-    <style>
-        :root {
-            --studio-purple: #7209b7;
-            --studio-pink: #f72585;
-            --studio-blue: #4cc9f0;
-            --glass-white: rgba(255, 255, 255, 0.9);
-            --text-dark: #2b2d42;
-        }
-
-        body {
-            margin: 0; padding: 20px; min-height: 100vh;
-            /* 背景图设置，请确保目录下有 bg-alice.jpg */
-            background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('bg-alice.jpg') no-repeat center center fixed; 
-            background-size: cover;
-            font-family: 'Inter', 'PingFang SC', sans-serif;
-            color: var(--text-dark);
-            line-height: 1.8;
-        }
-
-        .container { max-width: 900px; margin: 0 auto; }
-
-        /* 导航 */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .back-home { 
-            display: inline-flex; align-items: center; gap: 10px; 
-            padding: 10px 20px; background: white; border-radius: 50px; 
-            text-decoration: none; color: var(--studio-purple); font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
-        }
-        .back-home:hover { transform: translateY(-2px); }
-        .back-home img { width: 30px; height: 30px; border-radius: 50%; }
-
-        .glass-card {
-            background: var(--glass-white); backdrop-filter: blur(12px);
-            border-radius: 24px; padding: 40px; border: 1px solid white;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.08); margin-bottom: 30px;
-        }
-
-        h1 { font-size: 2.2rem; margin: 0; background: linear-gradient(to right, var(--studio-purple), var(--studio-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .subtitle { color: #666; font-style: italic; margin-bottom: 30px; border-left: 4px solid var(--studio-pink); padding-left: 15px; }
-
-        /* 视频区 */
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 4px solid white; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
-        /* 任务板块 */
-        .section-title { font-size: 1.5rem; font-weight: bold; color: var(--studio-purple); margin: 40px 0 25px; padding-bottom: 10px; border-bottom: 2px solid var(--studio-pink); display: flex; align-items: center; gap: 10px; }
-        
-        .question-card { margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 25px; border-radius: 18px; border-left: 5px solid var(--studio-blue); transition: 0.3s; }
-        .question-card:hover { transform: translateX(5px); background: white; }
-        
-        .q-title { font-weight: 800; font-size: 1.1rem; color: var(--studio-purple); margin-bottom: 8px; display: block; }
-        .q-intro { font-size: 0.95rem; color: #555; margin-bottom: 15px; display: block; }
-        
-        textarea {
-            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd;
-            font-family: inherit; font-size: 1rem; resize: vertical; min-height: 100px;
-            box-sizing: border-box; outline: none; transition: 0.3s;
-        }
-        textarea:focus { border-color: var(--studio-pink); box-shadow: 0 0 12px rgba(247, 37, 133, 0.1); }
-
-        /* 提交按钮 */
-        .submit-btn {
-            width: 100%; padding: 18px; border: none; border-radius: 15px;
-            background: linear-gradient(45deg, var(--studio-purple), var(--studio-pink));
-            color: white; font-size: 1.2rem; font-weight: bold; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(247, 37, 133, 0.2); transition: 0.3s; margin-top: 10px;
-        }
-        .submit-btn:hover { transform: scale(1.01); box-shadow: 0 15px 35px rgba(247, 37, 133, 0.3); }
-
-        /* 课后作业专用背景色区分 */
-        .post-class-area { background: rgba(114, 9, 183, 0.03); padding: 30px; border-radius: 20px; border: 1px dashed var(--studio-purple); margin-top: 50px; }
-
-        /* 成功弹窗 */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s; }
-        .modal-content { background: white; padding: 45px; border-radius: 30px; text-align: center; max-width: 450px; transform: scale(0.8); transition: 0.4s; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header class="header">
-        <a href="index.html" class="back-home"><img src="logo.png" alt="logo"><span>🏡 基地主页</span></a>
-        <div style="font-weight: bold; color: var(--studio-purple);">冬冬姨的灵感实验室 | ALICE</div>
-    </header>
-
-    <main class="glass-card">
-        <h1>深研报告：峡谷上的“人造平原”</h1>
-        <p class="subtitle">“观察世界，不仅要看它的高度，还要看它跨越高度的逻辑。”</p>
-
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="研习资料" allowfullscreen></iframe>
-        </div>
-
-        <form id="preClassForm">
-            <input type="hidden" name="身份识别" value="Alice (预习阶段)">
-            <input type="hidden" name="_subject" value="【预习情报】来自 Alice 的侦察报告">
-
-            <div class="section-title">🔍 第一阶段：预习拉片 (侦察任务)</div>
-
-            <div class="question-card">
-                <span class="q-title">任务 1：具象化翻译术</span>
-                <span class="q-intro">如果读者是 8 岁小学生，你如何重新解释“625米”有多高，或者“95架运20飞机”有多重？</span>
-                <textarea name="预习1_具象化" required placeholder="尝试用你自己的比喻来重新解释..."></textarea>
-            </div>
-
-            <div class="question-card">
-                <span class="q-title">任务 2：寻找“终极反派”</span>
-                <span class="q-intro">找出前 2 分钟里，导演用了哪些具体的词汇和画面，来渲染大自然这个“反派”有多可怕、多险恶？</span>
-                <textarea name="预习2_反派描写" required placeholder="记录下那些让你感到压迫感的词句..."></textarea>
-            </div>
-
-            <div class="question-card">
-                <span class="q-title">任务 3：捕捉“动词的肌肉感”</span>
-                <span class="q-intro">找出视频里 3 个让你觉得极具“力量感”或“生命力”的动词（例如：切割、伸长）。</span>
-                <textarea name="预习3_动词捕捉" required placeholder="写下那 3 个动词，并描述画面感..."></textarea>
-            </div>
-
-            <div class="question-card">
-                <span class="q-title">任务 4：镜头焦距的“极速拉扯”</span>
-                <span class="q-intro">对比 125.8 万座山头（宏观）与 5.7 毫米钢丝（微观），谈谈导演为什么要刻意把这两个数字放在一起？</span>
-                <textarea name="预习4_焦距对比" required placeholder="谈谈这种对比产生的视觉张力..."></textarea>
-            </div>
-
-            <div class="question-card">
-                <span class="q-title">任务 5：透视“起承转合”的骨架</span>
-                <span class="q-intro">总结出这个视频的骨架：起（如何开场）、承（如何铺陈）、转（哪里转折了）、合（最后结论）。</span>
-                <textarea name="预习5_起承转合" required placeholder="用简单的语言勾勒出这部大片的骨架..."></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn" id="preBtn">[ 点击发射 ] 预习侦察报告</button>
-        </form>
-
-        <div class="post-class-area">
-            <form id="postClassForm">
-                <input type="hidden" name="身份识别" value="Alice (课后阶段)">
-                <input type="hidden" name="_subject" value="【课后重构】来自 Alice 的思想建筑">
-
-                <div class="section-title">🎨 第二阶段：课后重构 (思想建筑)</div>
-
-                <div class="question-card">
-                    <span class="q-title">课题 1：策展人的概念重塑</span>
-                    <span class="q-intro">为纪录片重起一个更有文学张力的标题。写一段 50 字内的推荐语，用上“具象化翻译术”或“强肌肉动词”。</span>
-                    <textarea name="课后1_标题重塑" required placeholder="新标题：XXXX | 推荐语：XXXX"></textarea>
-                </div>
-
-                <div class="question-card">
-                    <span class="q-title">课题 2：峡谷与云雾的独白</span>
-                    <span class="q-intro">跳出人的视角，以“被切割的深谷”或“山顶云雾”的口吻，写一段 100 字左右的内心独白。</span>
-                    <textarea name="课后2_视角跳跃" required placeholder="尝试用大自然的傲慢与惊叹来书写..."></textarea>
-                </div>
-
-                <div class="question-card">
-                    <span class="q-title">课题 3：重新定义“桥”</span>
-                    <span class="q-intro">结合“24年技术传承”和“百万座山头的出路”，请你用 150 字左右，给“桥”下一个属于你的终极定义。</span>
-                    <textarea name="课后3_立意升华" required placeholder="这不仅是通道，更是..."></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" id="postBtn">[ 点击提交 ] 课后深度报告</button>
-            </form>
-        </div>
-    </main>
-</div>
-
-<div id="successModal" class="modal-overlay">
-    <div class="modal-content" id="modalBox">
-        <span style="font-size: 4rem; display: block; margin-bottom: 20px;">🎨</span>
-        <h2 id="modalTitle" style="color: var(--studio-purple);">思想已入库！</h2>
-        <p id="modalMsg" style="color: #555; line-height: 1.8; margin-bottom: 30px;">情报已成功同步至冬冬姨的灵感服务器。</p>
-        <button onclick="closeModal()" style="background: white; border: 2px solid var(--studio-purple); color: var(--studio-purple); padding: 12px 35px; border-radius: 50px; font-weight: bold; cursor: pointer;">[ 确认并归档 ]</button>
-    </div>
-</div>
-
 <script>
-    const setupForm = (formId, btnId, msg) => {
+    const setupForm = (formId, btnId, msg, title) => {
         const form = document.getElementById(formId);
         const btn = document.getElementById(btnId);
         const modal = document.getElementById('successModal');
@@ -186,7 +7,7 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            btn.innerText = '正在上传数据...';
+            btn.innerText = '正在加密打包思想碎片...';
             btn.style.opacity = '0.7';
 
             try {
@@ -198,14 +19,16 @@
 
                 if (response.ok) {
                     form.reset();
+                    // 这里换成了更有温度的标题和提示语！
+                    document.getElementById('modalTitle').innerText = title;
                     document.getElementById('modalMsg').innerText = msg;
                     modal.style.display = 'flex';
                     setTimeout(() => { modal.style.opacity = '1'; modalBox.style.transform = 'scale(1)'; }, 50);
                 } else {
-                    alert('传输信道忙，请稍后再试！');
+                    alert('信道干扰，请重试！');
                 }
             } catch (error) {
-                alert('网络连接错误！');
+                alert('网络连接失败！');
             } finally {
                 btn.innerText = formId === 'preClassForm' ? '[ 点击发射 ] 预习侦察报告' : '[ 点击提交 ] 课后深度报告';
                 btn.style.opacity = '1';
@@ -213,8 +36,20 @@
         });
     };
 
-    setupForm('preClassForm', 'preBtn', '预习情报已成功送达指挥中心！');
-    setupForm('postClassForm', 'postBtn', '课后深度报告已归档至灵感库！');
+    // ✨ 这里的文案变成了冬冬姨的专属鼓励！
+    setupForm(
+        'preClassForm', 
+        'preBtn', 
+        '叮！冬冬姨已经收到你的拉片笔记啦！你的洞察力真的很敏锐，好好休息，咱们周日见！',
+        '预习完美通关！'
+    );
+    
+    setupForm(
+        'postClassForm', 
+        'postBtn', 
+        '太惊艳了！你的深度思考已经点亮了基地的灵感库，冬冬姨迫不及待想细细品读你的大作啦！',
+        '灵感重构大成功！'
+    );
 
     function closeModal() {
         document.getElementById('successModal').style.opacity = '0';
@@ -222,6 +57,3 @@
         setTimeout(() => { document.getElementById('successModal').style.display = 'none'; }, 400);
     }
 </script>
-
-</body>
-</html>
