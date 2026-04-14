@@ -9,22 +9,21 @@
             --studio-purple: #7209b7;
             --studio-pink: #f72585;
             --studio-blue: #4cc9f0;
-            --glass-white: rgba(255, 255, 255, 0.88);
+            --glass-white: rgba(255, 255, 255, 0.9);
             --text-dark: #2b2d42;
         }
 
         body {
             margin: 0; padding: 20px; min-height: 100vh;
-            /* 艺术感柔和渐变背景 */
             background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
             font-family: 'Inter', 'PingFang SC', sans-serif;
             color: var(--text-dark);
             line-height: 1.8;
         }
 
-        .container { max-width: 850px; margin: 0 auto; }
+        .container { max-width: 900px; margin: 0 auto; }
 
-        /* 顶部导航 */
+        /* 导航 */
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .back-home { 
             display: inline-flex; align-items: center; gap: 10px; 
@@ -32,54 +31,49 @@
             text-decoration: none; color: var(--studio-purple); font-weight: bold;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
         }
+        .back-home:hover { transform: translateY(-2px); }
         .back-home img { width: 30px; height: 30px; border-radius: 50%; }
 
-        /* 玻璃拟态卡片 */
         .glass-card {
             background: var(--glass-white); backdrop-filter: blur(12px);
             border-radius: 24px; padding: 40px; border: 1px solid white;
             box-shadow: 0 20px 50px rgba(0,0,0,0.05); margin-bottom: 30px;
         }
 
-        h1 { font-size: 2.2rem; margin: 0 0 10px 0; background: linear-gradient(to right, var(--studio-purple), var(--studio-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .subtitle { color: #666; font-style: italic; margin-bottom: 30px; border-left: 3px solid var(--studio-pink); padding-left: 15px; }
+        h1 { font-size: 2.2rem; margin: 0; background: linear-gradient(to right, var(--studio-purple), var(--studio-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: #666; font-style: italic; margin-bottom: 30px; border-left: 4px solid var(--studio-pink); padding-left: 15px; }
 
-        /* 视频直播区 */
-        .video-section { margin-bottom: 40px; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 4px solid white; }
+        /* 视频区 */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 4px solid white; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        /* 任务区块 */
-        .task-group { margin-top: 40px; }
-        .task-header { font-size: 1.4rem; font-weight: bold; color: var(--studio-purple); margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid var(--studio-pink); display: inline-block; }
+        /* 任务板块 */
+        .section-title { font-size: 1.5rem; font-weight: bold; color: var(--studio-purple); margin: 40px 0 25px; padding-bottom: 10px; border-bottom: 2px solid var(--studio-pink); display: flex; align-items: center; gap: 10px; }
         
-        .question-card { margin-bottom: 30px; background: rgba(255,255,255,0.5); padding: 25px; border-radius: 18px; border-left: 5px solid var(--studio-blue); transition: 0.3s; }
-        .question-card:hover { transform: translateY(-3px); background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .question-card { margin-bottom: 25px; background: rgba(255,255,255,0.6); padding: 25px; border-radius: 18px; border-left: 5px solid var(--studio-blue); transition: 0.3s; }
+        .question-card:hover { transform: translateX(5px); background: white; }
         
-        .q-title { font-weight: 800; font-size: 1.1rem; color: var(--studio-purple); margin-bottom: 10px; display: block; }
-        .q-intro { font-size: 0.95rem; color: #555; margin-bottom: 15px; display: block; line-height: 1.6; }
+        .q-title { font-weight: 800; font-size: 1.1rem; color: var(--studio-purple); margin-bottom: 8px; display: block; }
+        .q-intro { font-size: 0.95rem; color: #555; margin-bottom: 15px; display: block; }
         
         textarea {
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd;
             font-family: inherit; font-size: 1rem; resize: vertical; min-height: 100px;
-            box-sizing: border-box; outline: none; transition: 0.3s; background: rgba(255,255,255,0.8);
+            box-sizing: border-box; outline: none; transition: 0.3s;
         }
         textarea:focus { border-color: var(--studio-pink); box-shadow: 0 0 12px rgba(247, 37, 133, 0.1); }
 
-        /* 提交按钮 */
         .submit-btn {
             width: 100%; padding: 20px; border: none; border-radius: 15px;
             background: linear-gradient(45deg, var(--studio-purple), var(--studio-pink));
-            color: white; font-size: 1.25rem; font-weight: bold; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(247, 37, 133, 0.2); transition: 0.3s;
+            color: white; font-size: 1.3rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(247, 37, 133, 0.2); transition: 0.3s; margin-top: 20px;
         }
-        .submit-btn:hover { transform: scale(1.02); box-shadow: 0 15px 35px rgba(247, 37, 133, 0.3); }
-        .submit-btn.loading { background: #999; cursor: not-allowed; }
+        .submit-btn:hover { transform: scale(1.01); box-shadow: 0 15px 35px rgba(247, 37, 133, 0.3); }
 
         /* 成功弹窗 */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s; }
-        .modal-content { background: white; padding: 45px; border-radius: 30px; text-align: center; max-width: 450px; transform: scale(0.8); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .art-icon { font-size: 5rem; margin-bottom: 20px; display: block; filter: drop-shadow(0 0 15px var(--studio-pink)); }
+        .modal-content { background: white; padding: 45px; border-radius: 30px; text-align: center; max-width: 450px; transform: scale(0.8); transition: 0.4s; }
     </style>
 </head>
 <body>
@@ -87,69 +81,84 @@
 <div class="container">
     <header class="header">
         <a href="index.html" class="back-home"><img src="logo.png" alt="logo"><span>🏡 基地主页</span></a>
-        <div style="font-weight: bold; color: var(--studio-purple);">ALICE · CREATIVE STUDIO</div>
+        <div style="font-weight: bold; color: var(--studio-purple);">冬冬姨的灵感实验室 | ALICE</div>
     </header>
 
     <main class="glass-card">
-        <h1>灵感研习：纪录片《一横一竖》</h1>
-        <p class="subtitle">“看热闹的人看画面，而创作者看骨架。”</p>
+        <h1>深研报告：峡谷上的“人造平原”</h1>
+        <p class="subtitle">“伟大的作品，不仅要经得起视觉的考量，更要经得起逻辑的拆解。”</p>
 
-        <section class="video-section">
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="研习资料" allowfullscreen></iframe>
-            </div>
-            <p style="font-size: 0.9rem; color: #777; text-align: center;">🎬 目标资料：星球研究所《一横一竖，都是中国功夫！》</p>
-        </section>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="研习资料" allowfullscreen></iframe>
+        </div>
 
         <form id="aliceForm">
-            <div class="task-group">
-                <div class="task-header">🕵️‍♀️ 预习拉片：导演视角的 5 个任务</div>
+            <input type="hidden" name="身份识别" value="Alice (灵感工作室)">
+            <input type="hidden" name="_subject" value="【新情报】来自 Alice 的研习报告">
 
-                <div class="question-card">
-                    <span class="q-title">任务 1：偷师“具象化翻译术”</span>
-                    <span class="q-intro"><strong>冬冬姨笔记：</strong>视频没有直接说 625 米，而是把它平移到了北上广。<strong>实操挑战：</strong>如果读者是 8 岁小学生，你如何重新解释“625米”有多高，或者“95架运20飞机”有多重？</span>
-                    <textarea name="任务1_具象化" required placeholder="尝试用你自己的比喻来重新解释..."></textarea>
-                </div>
+            <div class="section-title">🔍 第一阶段：预习拉片 (侦察任务)</div>
 
-                <div class="question-card">
-                    <span class="q-title">任务 2：寻找“终极反派”</span>
-                    <span class="q-intro"><strong>冬冬姨笔记：</strong>英雄的伟大需要反派来衬托。<strong>实操挑战：</strong>请找出前 2 分钟里，导演用了哪些具体的词汇和画面，来渲染大自然这个“反派”有多可怕、多险恶？</span>
-                    <textarea name="任务2_反派描写" required placeholder="记录下那些让你感到压迫感的词句..."></textarea>
-                </div>
-
-                <div class="question-card">
-                    <span class="q-title">任务 3：捕捉“动词的肌肉感”</span>
-                    <span class="q-intro"><strong>冬冬姨笔记：</strong>高手写文章，动词用得绝。<strong>实操挑战：</strong>找出视频里 3 个让你觉得极具“力量感”或“生命力”的动词（例如：切割、伸长）。</span>
-                    <textarea name="任务3_动词捕捉" required placeholder="写下那 3 个动词，并描述它们带给你的画面感..."></textarea>
-                </div>
-
-                <div class="question-card">
-                    <span class="q-title">任务 4：镜头焦距的“极速拉扯”</span>
-                    <span class="q-intro"><strong>冬冬姨笔记：</strong>好文章视野能伸能缩。<strong>实操挑战：</strong>对比 125.8 万座山头（宏观）与 5.7 毫米钢丝（微观），谈谈你觉得导演为什么要刻意把这两个数字放在一起？</span>
-                    <textarea name="任务4_焦距对比" required placeholder="谈谈这种宏观与微观对比产生的视觉张力..."></textarea>
-                </div>
-
-                <div class="question-card">
-                    <span class="q-title">任务 5：透视“起承转合”的叙事骨架</span>
-                    <span class="q-intro"><strong>冬冬姨笔记：</strong>好文章必有稳固的骨架。<strong>实操挑战：</strong>请试着总结出这个视频的骨架：起（如何开场）、承（如何展开）、转（哪里视角转换了）、合（最后什么结论）。</span>
-                    <textarea name="任务5_起承转合" required placeholder="分别用一两句话勾勒出这部大片的骨架..."></textarea>
-                </div>
+            <div class="question-card">
+                <span class="q-title">任务 1：具象化翻译术</span>
+                <span class="q-intro">如果读者是 8 岁小学生，你如何重新解释“625米”有多高，或者“95架运20飞机”有多重？</span>
+                <textarea name="预习1_具象化" required placeholder="尝试用你自己的比喻来重新解释..."></textarea>
             </div>
 
-            <button type="submit" class="submit-btn" id="submitBtn">发射研习报告至总部</button>
+            <div class="question-card">
+                <span class="q-title">任务 2：寻找“终极反派”</span>
+                <span class="q-intro">找出前 2 分钟里，导演用了哪些具体的词汇和画面，来渲染大自然这个“反派”有多可怕、多险恶？</span>
+                <textarea name="预习2_反派描写" required placeholder="记录下那些让你感到压迫感的词句..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <span class="q-title">任务 3：捕捉“动词的肌肉感”</span>
+                <span class="q-intro">找出视频里 3 个让你觉得极具“力量感”或“生命力”的动词（例如：切割、伸长）。</span>
+                <textarea name="预习3_动词捕捉" required placeholder="写下那 3 个动词，并描述画面感..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <span class="q-title">任务 4：镜头焦距的“极速拉扯”</span>
+                <span class="q-intro">对比 125.8 万座山头（宏观）与 5.7 毫米钢丝（微观），谈谈导演为什么要刻意把这两个数字放在一起？</span>
+                <textarea name="预习4_焦距对比" required placeholder="谈谈这种对比产生的视觉张力..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <span class="q-title">任务 5：透视“起承转合”的骨架</span>
+                <span class="q-intro">总结出这个视频的骨架：起（如何开场）、承（如何铺陈）、转（哪里转折了）、合（最后结论）。</span>
+                <textarea name="预习5_起承转合" required placeholder="用简单的语言勾勒出这部大片的骨架..."></textarea>
+            </div>
+
+            <div class="section-title">🎨 第二阶段：课后重构 (思想建筑)</div>
+
+            <div class="question-card">
+                <span class="q-title">课题 1：策展人的概念重塑</span>
+                <span class="q-intro">为纪录片重起一个更有文学张力的标题。写一段 50 字内的推荐语，用上“具象化翻译术”或“强肌肉动词”。</span>
+                <textarea name="课后1_标题重塑" required placeholder="新标题：XXXX | 推荐语：XXXX"></textarea>
+            </div>
+
+            <div class="question-card">
+                <span class="q-title">课题 2：峡谷与云雾的独白</span>
+                <span class="q-intro">跳出人的视角，以“被切割的深谷”或“山顶云雾”的口吻，写一段 100 字左右的内心独白，表达对人类力量的看法。</span>
+                <textarea name="课后2_视角跳跃" required placeholder="尝试用大自然的傲慢与惊叹来书写..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <span class="q-title">课题 3：重新定义“桥”</span>
+                <span class="q-intro">结合“24年技术传承”和“百万座山头的出路”，请你用 150 字左右，给“桥”下一个属于你的终极定义。</span>
+                <textarea name="课后3_立意升华" required placeholder="这不仅是通道，更是..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">发射研习报告至指挥中心</button>
         </form>
     </main>
 </div>
 
 <div id="successModal" class="modal-overlay">
     <div class="modal-content" id="modalBox">
-        <span class="art-icon">🎨</span>
-        <h2 style="color: var(--studio-purple); margin-bottom: 15px;">思想已入库！</h2>
-        <p style="color: #555; line-height: 1.8; margin-bottom: 30px;">
-            Alice，你极具洞察力的研习报告<br>已成功同步至冬冬姨的灵感服务器。<br>
-            期待周日的深度思想碰撞！
-        </p>
-        <button onclick="closeModal()" style="background: white; border: 2px solid var(--studio-purple); color: var(--studio-purple); padding: 12px 35px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;">[ 确认并归档任务 ]</button>
+        <span style="font-size: 5rem; display: block; margin-bottom: 20px;">🎨</span>
+        <h2 style="color: var(--studio-purple);">思想已入库！</h2>
+        <p style="color: #555; line-height: 1.8; margin-bottom: 30px;">Alice，你的深度研学报告已成功传输。<br>冬冬姨期待周日的思想碰撞！</p>
+        <button onclick="closeModal()" style="background: white; border: 2px solid var(--studio-purple); color: var(--studio-purple); padding: 12px 35px; border-radius: 50px; font-weight: bold; cursor: pointer;">[ 确认并归档 ]</button>
     </div>
 </div>
 
@@ -161,11 +170,10 @@
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        btn.innerText = '正在上传思想碎片... [UPLOADING]';
-        btn.classList.add('loading');
+        btn.innerText = '正在加密打包思想碎片...';
+        btn.style.opacity = '0.7';
 
         try {
-            // 使用你的专属 Formspree 链接
             const response = await fetch("https://formspree.io/f/mrergerg", {
                 method: "POST",
                 body: new FormData(form),
@@ -177,16 +185,13 @@
                 modal.style.display = 'flex';
                 setTimeout(() => { modal.style.opacity = '1'; modalBox.style.transform = 'scale(1)'; }, 50);
                 btn.innerText = '✅ 上传成功';
-                setTimeout(() => { btn.innerText = '发射研习报告至总部'; btn.classList.remove('loading'); }, 3000);
             } else {
-                alert('传输信道受到干扰，请稍后再试！');
-                btn.innerText = '发射研习报告至总部';
-                btn.classList.remove('loading');
+                alert('信道干扰，请重试！');
             }
         } catch (error) {
-            alert('网络连接错误！');
-            btn.innerText = '发射研习报告至总部';
-            btn.classList.remove('loading');
+            alert('网络连接失败！');
+        } finally {
+            setTimeout(() => { btn.innerText = '发射研习报告至指挥中心'; btn.style.opacity = '1'; }, 3000);
         }
     });
 
