@@ -74,8 +74,19 @@
         }
         .submit-btn:hover { transform: scale(1.01); box-shadow: 0 15px 35px rgba(247, 37, 133, 0.3); }
 
+        /* 🚨 新增：预习倒计时警告 (Alice专属温柔风格) */
+        .deadline-alert { background: rgba(247, 37, 133, 0.08); border: 1px dashed var(--studio-pink); color: var(--studio-purple); padding: 15px 20px; border-radius: 12px; margin-bottom: 25px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+
         /* 课后作业专用背景色区分 */
-        .post-class-area { background: rgba(114, 9, 183, 0.03); padding: 30px; border-radius: 20px; border: 1px dashed var(--studio-purple); margin-top: 50px; }
+        .post-class-area { background: rgba(114, 9, 183, 0.03); padding: 30px; border-radius: 20px; border: 1px dashed var(--studio-purple); margin-top: 50px; position: relative; }
+
+        /* 🚨 新增：加密锁屏机制 */
+        .locked-wrapper { position: relative; }
+        .locked-content { filter: blur(6px); pointer-events: none; opacity: 0.4; user-select: none; transition: all 0.5s ease; }
+        .lock-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px); z-index: 10; border-radius: 20px; text-align: center; padding: 20px; box-sizing: border-box; border: 1px solid var(--studio-pink); }
+        .lock-overlay h3 { color: var(--studio-purple); margin: 10px 0; font-size: 1.5rem; letter-spacing: 2px;}
+        .lock-overlay p { color: #555; font-size: 1rem; margin-bottom: 15px; }
+        .relax-notice { background: rgba(76, 201, 240, 0.1); color: var(--studio-purple); padding: 10px 20px; border-radius: 50px; font-size: 0.95rem; font-weight: bold; border: 1px solid var(--studio-blue); }
 
         /* 成功弹窗 */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s; }
@@ -96,6 +107,10 @@
 
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="研习资料" allowfullscreen></iframe>
+        </div>
+
+        <div class="deadline-alert">
+            <span style="font-size: 1.2rem;">⏱️</span> 导师提示：第一阶段预习情报提交通道，将于 <strong>2026年4月17日 23:59</strong> 关闭，请在此之前完成拉片任务！
         </div>
 
         <form id="preClassForm">
@@ -138,32 +153,43 @@
         </form>
 
         <div class="post-class-area">
-            <form id="postClassForm">
-                <input type="hidden" name="身份识别" value="Alice (课后阶段)">
-                <input type="hidden" name="_subject" value="【课后重构】来自 Alice 的思想建筑">
+            <div class="section-title">🎨 第二阶段：课后重构 (思想建筑)</div>
 
-                <div class="section-title">🎨 第二阶段：课后重构 (思想建筑)</div>
-
-                <div class="question-card">
-                    <span class="q-title">课题 1：策展人的概念重塑</span>
-                    <span class="q-intro">为纪录片重起一个更有文学张力的标题。写一段 50 字内的推荐语，用上“具象化翻译术”或“强肌肉动词”。</span>
-                    <textarea name="课后1_标题重塑" required placeholder="新标题：XXXX | 推荐语：XXXX"></textarea>
+            <div class="locked-wrapper" id="lockWrapper">
+                <div class="lock-overlay" id="lockOverlay">
+                    <span style="font-size: 3.5rem;">🔒</span>
+                    <h3>灵感封印中 / LOCKED</h3>
+                    <p>必须先完成上方 <strong>[ 第一阶段：预习拉片 ]</strong> 并成功发射，方可解锁深度课后卷宗！</p>
+                    <div class="relax-notice">💡 导师提示：此区域为课后大作业，无需今日完成，可等周末上课后开启。</div>
                 </div>
 
-                <div class="question-card">
-                    <span class="q-title">课题 2：峡谷与云雾的独白</span>
-                    <span class="q-intro">跳出人的视角，以“被切割的深谷”或“山顶云雾”的口吻，写一段 100 字左右的内心独白。</span>
-                    <textarea name="课后2_视角跳跃" required placeholder="尝试用大自然的傲慢与惊叹来书写..."></textarea>
-                </div>
+                <div class="locked-content" id="postClassContent">
+                    <form id="postClassForm">
+                        <input type="hidden" name="身份识别" value="Alice (课后阶段)">
+                        <input type="hidden" name="_subject" value="【课后重构】来自 Alice 的思想建筑">
 
-                <div class="question-card">
-                    <span class="q-title">课题 3：重新定义“桥”</span>
-                    <span class="q-intro">结合“24年技术传承”和“百万座山头的出路”，请你用 150 字左右，给“桥”下一个属于你的终极定义。</span>
-                    <textarea name="课后3_立意升华" required placeholder="这不仅是通道，更是..."></textarea>
-                </div>
+                        <div class="question-card">
+                            <span class="q-title">课题 1：策展人的概念重塑</span>
+                            <span class="q-intro">为纪录片重起一个更有文学张力的标题。写一段 50 字内的推荐语，用上“具象化翻译术”或“强肌肉动词”。</span>
+                            <textarea name="课后1_标题重塑" required placeholder="新标题：XXXX | 推荐语：XXXX"></textarea>
+                        </div>
 
-                <button type="submit" class="submit-btn" id="postBtn">[ 点击提交 ] 课后深度报告</button>
-            </form>
+                        <div class="question-card">
+                            <span class="q-title">课题 2：峡谷与云雾的独白</span>
+                            <span class="q-intro">跳出人的视角，以“被切割的深谷”或“山顶云雾”的口吻，写一段 100 字左右的内心独白。</span>
+                            <textarea name="课后2_视角跳跃" required placeholder="尝试用大自然的傲慢与惊叹来书写..."></textarea>
+                        </div>
+
+                        <div class="question-card">
+                            <span class="q-title">课题 3：重新定义“桥”</span>
+                            <span class="q-intro">结合“24年技术传承”和“百万座山头的出路”，请你用 150 字左右，给“桥”下一个属于你的终极定义。</span>
+                            <textarea name="课后3_立意升华" required placeholder="这不仅是通道，更是..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="postBtn">[ 点击提交 ] 课后深度报告</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
 </div>
@@ -178,18 +204,36 @@
 </div>
 
 <script>
-    const setupForm = (formId, btnId, msg) => {
+    const modal = document.getElementById('successModal');
+    const modalBox = document.getElementById('modalBox');
+
+    // 页面加载时检查是否已经解密过
+    window.onload = () => {
+        if (localStorage.getItem('alice_pre_completed') === 'true') {
+            unlockPostClass();
+        }
+    };
+
+    // 解密动画函数
+    function unlockPostClass() {
+        const overlay = document.getElementById('lockOverlay');
+        const content = document.getElementById('postClassContent');
+        overlay.style.opacity = '0';
+        content.classList.remove('locked-content');
+        setTimeout(() => { overlay.style.display = 'none'; }, 500);
+    }
+
+    const setupForm = (formId, btnId, msg, title, isPreClass) => {
         const form = document.getElementById(formId);
         const btn = document.getElementById(btnId);
-        const modal = document.getElementById('successModal');
-        const modalBox = document.getElementById('modalBox');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            btn.innerText = '正在上传数据...';
+            btn.innerText = '正在加密打包思想碎片...';
             btn.style.opacity = '0.7';
 
             try {
+                // 专属 Formspree 链接保持不变
                 const response = await fetch("https://formspree.io/f/mrergerg", {
                     method: "POST",
                     body: new FormData(form),
@@ -198,9 +242,16 @@
 
                 if (response.ok) {
                     form.reset();
+                    document.getElementById('modalTitle').innerText = title;
                     document.getElementById('modalMsg').innerText = msg;
                     modal.style.display = 'flex';
                     setTimeout(() => { modal.style.opacity = '1'; modalBox.style.transform = 'scale(1)'; }, 50);
+
+                    // 如果预习成功，解锁下方大作业并触发动画
+                    if (isPreClass) {
+                        localStorage.setItem('alice_pre_completed', 'true');
+                        setTimeout(unlockPostClass, 1000); 
+                    }
                 } else {
                     alert('传输信道忙，请稍后再试！');
                 }
@@ -213,13 +264,27 @@
         });
     };
 
-    setupForm('preClassForm', 'preBtn', '预习情报已成功送达指挥中心！');
-    setupForm('postClassForm', 'postBtn', '课后深度报告已归档至灵感库！');
+    // 冬冬姨的专属鼓励！（加入了解密提示）
+    setupForm(
+        'preClassForm', 
+        'preBtn', 
+        '叮！冬冬姨已经收到你的拉片笔记啦！由于表现优异，【课后深度卷宗】现已为你解锁（无需今日完成）。好好休息，咱们周日见！',
+        '预习完美通关！',
+        true
+    );
+    
+    setupForm(
+        'postClassForm', 
+        'postBtn', 
+        '太惊艳了！你的深度思考已经点亮了基地的灵感库，冬冬姨迫不及待想细细品读你的大作啦！',
+        '灵感重构大成功！',
+        false
+    );
 
     function closeModal() {
-        document.getElementById('successModal').style.opacity = '0';
-        document.getElementById('modalBox').style.transform = 'scale(0.8)';
-        setTimeout(() => { document.getElementById('successModal').style.display = 'none'; }, 400);
+        modal.style.opacity = '0';
+        modalBox.style.transform = 'scale(0.8)';
+        setTimeout(() => { modal.style.display = 'none'; }, 400);
     }
 </script>
 
