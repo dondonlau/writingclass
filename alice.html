@@ -135,4 +135,127 @@
                     <strong>[ 原始题目 ]</strong> 找出前 2 分钟里，导演用了哪些具体的词汇和画面，来渲染大自然这个“反派”有多可怕、多险恶？
                 </div>
                 <div class="alice-history">
-                    <span class="history-tag">你之前的回答
+                    <span class="history-tag">你之前的回答：</span>
+                    天堑。
+                </div>
+                <div class="mentor-advice">
+                    <span>💡</span> 
+                    <span>冬冬姨反馈：词汇很高级，但需要“证据”。进阶建议：重看视频，找出导演用了哪些具体的数字或画面来证明它是大反派。</span>
+                </div>
+                <div class="evolution-input-area">
+                    <textarea name="进阶2_反派证据" required placeholder="例如：具体的数字、江水的样子..."></textarea>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="original-q">
+                    <strong>[ 原始题目 ]</strong> 找出视频里 3 个让你觉得极具“力量感”或“生命力”的动词。
+                </div>
+                <div class="alice-history">
+                    <span class="history-tag">你之前的回答：</span>
+                    拆分，插入，牵引。
+                </div>
+                <div class="mentor-advice">
+                    <span>💡</span> 
+                    <span>冬冬姨反馈：由于系统原因，你之前漏掉了“画面感”描述。进阶建议：把你当做导演，选一个词，描述一个特别震撼的特写镜头。</span>
+                </div>
+                <div class="evolution-input-area">
+                    <textarea name="进阶3_导演视角" required placeholder="用一句话描述你脑海中的特写画面..."></textarea>
+                </div>
+            </div>
+
+            <div class="task-card" style="border-left-color: #aaa;">
+                <div class="original-q">
+                    <strong>[ 原始题目 ]</strong> 对比 125.8 万座山头（宏观）与 5.7 毫米钢丝（微观），谈谈导演为什么要刻意把这两个数字放在一起？
+                </div>
+                <div class="alice-history">
+                    <span class="history-tag">你之前的回答：</span>
+                    我不懂？
+                </div>
+                <div class="mentor-advice">
+                    <span>💡</span> 
+                    <span>冬冬姨反馈：诚实是最棒的。进阶挑战：1. 写出具体哪里不懂？ 2. 想象蚂蚁面对巨石，为什么导演要把渺小的钢丝和巨大的山放在一起？</span>
+                </div>
+                <div class="evolution-input-area">
+                    <textarea name="进阶4_不懂点拆解" required placeholder="录入你的真实思考逻辑..."></textarea>
+                </div>
+            </div>
+
+            <div class="task-card" style="border-left-color: #4cd137;">
+                <div class="original-q">
+                    <strong>[ 原始题目 ]</strong> 总结出这个视频的骨架：起、承、转、合。
+                </div>
+                <div class="alice-history">
+                    <span class="history-tag">你之前的回答：</span>
+                    (视频一开头，导演就放出了几个特别震撼的画面和句子... 最后...说明了这所桥梁是如何实实在在地改变了当地人的生活。)
+                </div>
+                <div class="mentor-advice">
+                    <span style="color: #4cd137;">🏆</span> 
+                    <span style="color: #4cd137;">冬冬姨反馈：满分加星！逻辑非常清晰。进阶任务：请准备好，在周日课堂上尝试【脱稿】分享这一段。</span>
+                </div>
+                <div style="margin-top: 10px; font-size: 0.9rem; background: #f0fff0; padding: 10px; border-radius: 8px;">
+                    ✅ 你已成功点亮本题勋章。
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">发射进化报告 🚀</button>
+        </form>
+
+        <section class="post-class-lock" id="postLock">
+            <div id="lockContent">
+                <span style="font-size: 2.5rem;">🔒</span>
+                <h3 style="margin: 10px 0;">思维进化中...</h3>
+                <p>提交上方报告后，将解锁【第二阶段：课后重构】任务卷宗</p>
+            </div>
+            <div id="unlockContent" style="display: none; color: var(--text-dark);">
+                <h3 style="color: var(--studio-purple);">🔓 任务卷宗已解密！</h3>
+                <p>课后大作业已开启，你可以根据课堂讨论随时回来填写。</p>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    const form = document.getElementById('evolutionForm');
+    const btn = document.getElementById('submitBtn');
+    const postLock = document.getElementById('postLock');
+
+    window.onload = () => {
+        if (localStorage.getItem('alice_evolved') === 'true') {
+            showUnlocked();
+        }
+    };
+
+    function showUnlocked() {
+        document.getElementById('lockContent').style.display = 'none';
+        document.getElementById('unlockContent').style.display = 'block';
+        postLock.style.background = "rgba(114, 9, 183, 0.05)";
+        postLock.style.border = "2px solid var(--studio-purple)";
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        btn.innerText = '正在同步进化数据...';
+        
+        try {
+            const response = await fetch("https://formspree.io/f/mrergerg", {
+                method: "POST",
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                localStorage.setItem('alice_evolved', 'true');
+                showUnlocked();
+                alert('进化报告已成功入库！冬冬姨周日见！');
+            }
+        } catch (error) {
+            alert('网络波动，请重试！');
+        } finally {
+            btn.innerText = '发射进化报告 🚀';
+        }
+    });
+</script>
+
+</body>
+</html>
