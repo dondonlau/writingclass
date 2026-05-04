@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>特工终端 - William [双重侦察任务]</title>
     
-    <link rel="icon" type="image/png" href="logo.png?v=3.2">
-    <link rel="apple-touch-icon" href="logo.png?v=3.2">
+    <link rel="icon" type="image/png" href="logo.png?v=4.0">
+    <link rel="apple-touch-icon" href="logo.png?v=4.0">
     <meta name="apple-mobile-web-app-title" content="特工终端">
     <meta name="theme-color" content="#020c1b">
 
@@ -33,32 +33,78 @@
         
         .header { 
             display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 2px solid var(--neon-cyan); padding: 15px; margin-bottom: 30px;
+            border-bottom: 2px solid var(--neon-cyan); padding: 15px; margin-bottom: 40px;
             background: rgba(100, 255, 218, 0.05); border-radius: 8px;
         }
 
-        .mission-tabs { display: flex; gap: 10px; margin-bottom: 0px; }
-        .tab-btn {
-            padding: 12px 25px; background: rgba(17, 34, 64, 0.5); border: 1px solid #233554;
-            color: var(--text-muted); cursor: pointer; border-radius: 8px 8px 0 0;
-            font-family: inherit; font-weight: bold; transition: 0.3s;
+        /* 🚀 强化版：任务选择标签页 */
+        .mission-tabs { 
+            display: flex; gap: 15px; margin-bottom: 0px; padding: 0 10px;
         }
+        .tab-btn {
+            position: relative;
+            padding: 16px 35px; 
+            background: linear-gradient(180deg, rgba(17, 34, 64, 0.8) 0%, rgba(2, 12, 27, 0.9) 100%);
+            border: 2px solid #233554;
+            border-bottom: none;
+            color: var(--text-muted); 
+            cursor: pointer; 
+            border-radius: 12px 12px 0 0;
+            font-family: inherit; 
+            font-weight: bold; 
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            overflow: hidden; /* 保证扫光不会漏出边缘 */
+        }
+        
+        /* 💡 激活状态：呼吸灯 + 外圈光 */
         .tab-btn.active { 
-            background: var(--panel-bg); color: var(--neon-cyan); 
-            border-bottom: 3px solid var(--neon-cyan); border-color: var(--neon-cyan);
-            transform: translateY(-2px);
+            background: var(--panel-bg); 
+            color: #fff; 
+            border: 2px solid var(--neon-cyan);
+            border-bottom: none;
+            transform: translateY(-4px);
+            animation: neonPulse 2s infinite alternate; /* 呼吸光动画 */
+            z-index: 10;
         }
 
+        /* ✨ 炫酷扫光特效（特工专属） */
+        .tab-btn.active::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.6), transparent);
+            transform: skewX(-25deg);
+            animation: sweepLight 4s infinite; /* 每4秒扫过一道光 */
+        }
+
+        /* 呼吸光芒动画 */
+        @keyframes neonPulse {
+            0% { box-shadow: 0 -5px 15px rgba(100, 255, 218, 0.2), inset 0 5px 10px rgba(100, 255, 218, 0.1); text-shadow: 0 0 5px rgba(100, 255, 218, 0.5); }
+            100% { box-shadow: 0 -5px 30px rgba(100, 255, 218, 0.7), inset 0 5px 20px rgba(100, 255, 218, 0.4); text-shadow: 0 0 15px var(--neon-cyan); }
+        }
+
+        /* 激光扫过动画 */
+        @keyframes sweepLight {
+            0% { left: -150%; }
+            20% { left: 200%; } /* 光效迅速扫过 */
+            100% { left: 200%; } /* 停顿一会再扫 */
+        }
+
+        /* 任务面板调整，配合发光标签 */
         .mission-panel { 
-            display: none; background: var(--panel-bg); border: 1px solid var(--neon-cyan);
-            border-radius: 0 0 12px 12px; padding: 30px; margin-bottom: 40px; 
-            backdrop-filter: blur(10px);
+            display: none; background: var(--panel-bg); 
+            border: 2px solid var(--neon-cyan); /* 加粗边框与标签呼应 */
+            border-radius: 0 12px 12px 12px; padding: 30px; margin-bottom: 40px; 
+            backdrop-filter: blur(10px); position: relative; z-index: 5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .mission-panel.active { display: block; animation: fadeIn 0.5s; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--neon-purple); margin-bottom: 40px; background: #000; }
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 2px solid var(--neon-purple); margin-bottom: 40px; background: #000; }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
         .task-card { margin-bottom: 45px; border-left: 4px solid var(--neon-purple); padding-left: 25px; }
@@ -76,7 +122,7 @@
             border-radius: 8px; outline: none; resize: vertical; min-height: 180px; 
             line-height: 1.8; box-sizing: border-box; transition: 0.4s; margin-top: 10px;
         }
-        .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); }
+        .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); box-shadow: 0 0 15px rgba(179, 146, 240, 0.2); }
 
         .submit-btn { 
             width: 100%; padding: 25px; background: transparent; border: 2px solid var(--neon-purple); 
@@ -99,15 +145,15 @@
         </header>
 
         <div class="mission-tabs">
-            <button class="tab-btn active" onclick="showMission('m1', this)">档案 01：天空之桥</button>
-            <button class="tab-btn" onclick="showMission('m2', this)">档案 02：地心骇客</button>
+            <button class="tab-btn active" onclick="showMission('m1', this)">📡 档案 01：天空之桥</button>
+            <button class="tab-btn" onclick="showMission('m2', this)">📡 档案 02：地心骇客</button>
         </div>
 
         <form id="williamForm">
             <input type="hidden" name="特工身份" value="William Level 3">
 
             <div id="m1" class="mission-panel active">
-                <h2 style="color: #fff; margin-bottom: 25px;">任务 01：花江峡谷大桥侦察</h2>
+                <h2 style="color: #fff; margin-bottom: 25px; border-bottom: 1px dashed #233554; padding-bottom: 15px;">当前播放：花江峡谷大桥侦察影像</h2>
                 <div class="video-box">
                     <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" allowfullscreen></iframe>
                 </div>
@@ -132,7 +178,7 @@
             </div>
 
             <div id="m2" class="mission-panel">
-                <h2 style="color: #fff; margin-bottom: 25px;">任务 02：天山胜利隧道侦察</h2>
+                <h2 style="color: #fff; margin-bottom: 25px; border-bottom: 1px dashed #233554; padding-bottom: 15px;">当前播放：天山胜利隧道侦察影像</h2>
                 <div class="video-box">
                     <iframe src="https://www.youtube.com/embed/prOs6Ala1uI" allowfullscreen></iframe>
                 </div>
@@ -156,14 +202,17 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn" id="subBtn">[ 写完了，点击发射情报！ ]</button>
+            <button type="submit" class="submit-btn" id="subBtn">[ 写完了，点击发射全套情报！ ]</button>
         </form>
     </div>
 
     <script>
         function showMission(missionId, btn) {
+            // 隐藏所有面板和取消所有按钮的高亮光效
             document.querySelectorAll('.mission-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            // 给当前点击的模块加上闪光和显示效果
             document.getElementById(missionId).classList.add('active');
             btn.classList.add('active');
         }
