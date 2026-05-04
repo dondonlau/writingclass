@@ -1,189 +1,21 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特工终端 - William [LEVEL 2]</title>
-    <style>
-        :root {
-            --neon-cyan: #64ffda;
-            --dark-bg: #020c1b;
-            --panel-bg: rgba(17, 34, 64, 0.85); 
-            --text-main: #ccd6f6;
-            --text-muted: #8892b0;
-            --alert-red: #ff4d4d;
-            --neon-purple: #b392f0;
-        }
-        
-        body { 
-            background: linear-gradient(rgba(2, 12, 27, 0.85), rgba(2, 12, 27, 0.85)), url('bg-william.jpg') no-repeat center center fixed; 
-            background-size: cover;
-            color: var(--text-main); margin: 0; padding: 20px; font-family: 'Courier New', Courier, monospace; line-height: 1.6; 
-        }
-        
-        .dashboard { max-width: 900px; margin: 0 auto; }
-        
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-cyan); padding-bottom: 15px; margin-bottom: 30px; }
-        .back-home { display: inline-flex; align-items: center; gap: 10px; padding: 8px 15px; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); text-decoration: none; font-size: 0.9rem; border-radius: 4px; transition: all 0.3s; background: rgba(100, 255, 218, 0.05); }
-        .back-home:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 15px var(--neon-cyan); }
-        
-        .panel { background: var(--panel-bg); border: 1px solid #233554; border-radius: 8px; padding: 25px; margin-bottom: 30px; backdrop-filter: blur(10px); }
-        
-        .mission-title { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border-bottom: 1px dashed #233554; padding-bottom: 15px;}
-        .pulse-dot { width: 12px; height: 12px; background: var(--neon-purple); border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(179, 146, 240, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(179, 146, 240, 0); } 100% { box-shadow: 0 0 0 0 rgba(179, 146, 240, 0); } }
-
-        .level2-alert {
-            background: rgba(179, 146, 240, 0.1); border: 1px solid var(--neon-purple);
-            color: var(--neon-purple); padding: 15px 20px; border-radius: 6px;
-            margin-bottom: 25px; font-weight: bold; display: flex; align-items: center; gap: 10px;
-            text-shadow: 0 0 5px rgba(179, 146, 240, 0.5);
-        }
-
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; border: 1px solid var(--neon-purple); margin-bottom: 30px; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        
-        .task-block { margin-bottom: 35px; border-left: 3px solid var(--neon-purple); padding-left: 20px; background: rgba(2, 12, 27, 0.4); padding-top: 15px; padding-bottom: 15px; padding-right: 15px; border-radius: 0 8px 8px 0; }
-        .task-title { color: var(--neon-purple); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; }
-        .task-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
-        .dongdong-tips { background: rgba(100, 255, 218, 0.05); border-left: 2px solid var(--neon-cyan); padding: 10px 15px; margin-bottom: 15px; font-size: 0.9rem; color: var(--neon-cyan); }
-        
-        /* 完美的特工输入框样式 */
-        .cipher-textarea { 
-            width: 100%; 
-            background: rgba(2, 12, 27, 0.8); 
-            border: 1px solid #233554; 
-            color: var(--neon-cyan); 
-            padding: 18px; 
-            font-family: inherit; 
-            font-size: 1.05rem; 
-            border-radius: 6px; 
-            outline: none; 
-            resize: vertical; 
-            min-height: 180px; 
-            line-height: 1.8;
-            box-sizing: border-box; 
-            transition: 0.3s;
-        }
-        .cipher-textarea:focus { border-color: var(--neon-purple); box-shadow: 0 0 12px rgba(179, 146, 240, 0.2); }
-
-        .submit-btn { width: 100%; padding: 20px; background: transparent; border: 2px solid var(--neon-purple); color: var(--neon-purple); font-family: inherit; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 6px; transition: all 0.3s; letter-spacing: 2px; }
-        .submit-btn:hover { background: var(--neon-purple); color: var(--dark-bg); box-shadow: 0 0 20px var(--neon-purple); }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s; }
-        .modal-content { background: #112240; border: 2px solid var(--neon-purple); border-radius: 12px; padding: 40px; text-align: center; max-width: 450px; transform: scale(0.9); transition: 0.3s; }
-    </style>
-</head>
-<body>
-    <div class="dashboard">
-        <header class="header">
-            <a href="index.html" class="back-home">⬅ 撤退至基地</a>
-            <div style="text-align: right; font-size: 0.8rem;">AGENT: <span style="color:var(--neon-cyan)">WILLIAM</span> | CLEARANCE: <span style="color:var(--neon-purple)">LEVEL 2</span></div>
-        </header>
-
-        <section class="panel">
-            <div class="mission-title">
-                <div class="pulse-dot"></div>
-                <h2 style="margin:0; color: white;">OPERATION: 深空与深渊 (5:00+)</h2>
-            </div>
-            
-            <div class="level2-alert">
-                <span>⚠️</span> 系统提示：由于你初阶表现优异，冬冬姨已为你解密【第二阶段：架构师核心训练】。请重点侦察视频 5 分钟以后的机密内容。
-            </div>
-            
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" title="目标资料" allowfullscreen></iframe>
-            </div>
-
-            <form id="level2Form">
-                <input type="hidden" name="身份识别" value="William (Level 2 任务)">
-                <input type="hidden" name="_subject" value="【高级情报】来自特工 William 的 2.0 报告">
-                
-                <div class="task-block">
-                    <div class="task-title">🎯 模块 A：微观与宏观的极限拉扯</div>
+<div class="task-block" style="border-left-color: #ff9f43;">
+                    <div class="task-title" style="color: #ff9f43;">👑 终极演习：机甲突围（微型架构报告）</div>
                     <div class="task-desc">
-                        在视频 5:14 处，导演突然让我们看一根只有 <strong>5.7 毫米</strong>的细钢丝，甚至动用太空里的“北斗卫星”来抓 <strong>2 毫米</strong>的误差。
+                        特工，造句只是打靶训练，现在到了实战演习！请你动用本周收集的“词汇弹药”，建造一座逻辑严密的文字堡垒。
                     </div>
+                    
+                    <div style="background: rgba(255, 159, 67, 0.1); border: 1px solid #ff9f43; padding: 15px; border-radius: 6px; margin-bottom: 15px; font-size: 0.95rem; color: #ff9f43;">
+                        <strong>📦 词汇弹药库（请至少挑选 3 个使用，并在文中加上括号标记）：</strong><br>
+                        蜿蜒曲折、史无前例、以柔克刚、四两拨千斤、深渊、庞然大物。
+                    </div>
+
                     <div class="dongdong-tips">
-                        💡 冬冬姨导读：前半段一直在说“125万座山”有多大，这里却在说“2毫米”有多小。为了完成一个极大的目标，必须在一件极小的事情上做到极致。
+                        💡 <strong>冬冬姨的图纸（请按照起承转合的顺序写）：</strong><br>
+                        1. <strong>【起】</strong> 描述一个极其恶劣的环境（如风雪大山）。<br>
+                        2. <strong>【承】</strong> 遇到了什么可怕的困难？<br>
+                        3. <strong>【转】</strong> 工程师用什么反常理的绝招破解了它？<br>
+                        4. <strong>【合】</strong> 最后的结局画面有多震撼？
                     </div>
-                    <textarea name="进阶1_极限反差" class="cipher-textarea" required placeholder="实战挑战：请模仿这种“极小控制极大”的写法，描述一个你熟悉的场景（比如：拼乐高、写复杂代码、或者打篮球）。"></textarea>
+                    
+                    <textarea name="进阶4_终极段落" class="cipher-textarea" style="min-height: 250px; border-color: #ff9f43;" required placeholder="在这个文本框里，组装你的文字机甲吧！（建议字数：150字左右）..."></textarea>
                 </div>
-
-                <div class="task-block">
-                    <div class="task-title">🎯 模块 B：破解总指挥的“凡尔赛”密码</div>
-                    <div class="task-desc">
-                        在 6:41 处，总工程师淡淡地说了一句“没有太多困难”。随后镜头展示了一条长达 <strong>24 年</strong>的“造桥历史链”。
-                    </div>
-                    <div class="dongdong-tips">
-                        💡 冬冬姨导读：好文章不能只吹牛，必须要有“证据链”。如果让你写一篇关于自己“终于攻克了一道难题”的日记，你该如何用“过去的积累”来证明你现在的成功不是偶然？
-                    </div>
-                    <textarea name="进阶2_逻辑证据链" class="cipher-textarea" required placeholder="实战挑战：写下属于你的“证据链”（例如：我为了解开这道题，过去几个月里...）"></textarea>
-                </div>
-
-                <div class="task-block">
-                    <div class="task-title">🎯 模块 C：终极命名者 (概念降维打击)</div>
-                    <div class="task-desc">
-                        在视频结尾，导演说贵州不再是全都是山，而是拥有一片<strong>“人造平原”</strong>。这个新词汇一出来，工程的伟大程度瞬间炸裂！
-                    </div>
-                    <div class="dongdong-tips">
-                        💡 冬冬姨导读：文章结尾的最高境界，就是给习以为常的东西下个“新定义”。台灯不叫台灯，叫“夜间思维加速器”。
-                    </div>
-                    <textarea name="进阶3_终极命名" class="cipher-textarea" required placeholder="实战挑战：挑选一件你桌子上的普通物品（文具/键盘/水杯），抛开原本的名字，从“它能改变什么”的角度，给它取一个充满科幻感的新名字！"></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submitBtn">[ 发射高阶数据至冬冬姨终端 ]</button>
-            </form>
-        </section>
-    </div>
-
-    <div id="successModal" class="modal-overlay">
-        <div class="modal-content" id="modalBox">
-            <span style="font-size: 4rem; display: block; margin-bottom: 20px;">🌌</span>
-            <h2 style="color: var(--neon-purple);">LEVEL 2 权限破解成功！</h2>
-            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px;">特工 William，你的高维架构思维已震惊情报局。冬冬姨非常期待这周末与你复盘这份完美的档案！</p>
-            <button onclick="closeModal()" style="background: transparent; border: 1px solid var(--neon-purple); color: var(--neon-purple); padding: 12px 35px; border-radius: 4px; cursor: pointer; font-weight: bold;">[ 确认退出系统 ]</button>
-        </div>
-    </div>
-
-    <script>
-        const form = document.getElementById('level2Form');
-        const btn = document.getElementById('submitBtn');
-        const modal = document.getElementById('successModal');
-        const modalBox = document.getElementById('modalBox');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            btn.innerText = 'UPLOADING TO DONGDONG...';
-            btn.style.opacity = '0.5';
-
-            try {
-                const response = await fetch("https://formspree.io/f/mrergerg", {
-                    method: "POST",
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (response.ok) {
-                    form.reset();
-                    modal.style.display = 'flex';
-                    setTimeout(() => { modal.style.opacity = '1'; modalBox.style.transform = 'scale(1)'; }, 50);
-                } else {
-                    alert('传输信道受到干扰，请重试！');
-                }
-            } catch (err) { 
-                alert('网络连接中断！'); 
-            } finally { 
-                btn.innerText = '[ 发射高阶数据至冬冬姨终端 ]'; 
-                btn.style.opacity = '1'; 
-            }
-        });
-
-        function closeModal() {
-            modal.style.opacity = '0';
-            modalBox.style.transform = 'scale(0.8)';
-            setTimeout(() => { modal.style.display = 'none'; }, 400);
-        }
-    </script>
-</body>
-</html>
