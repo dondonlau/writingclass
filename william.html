@@ -3,181 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特工终端 - William [LEVEL 3]</title>
+    <title>特工终端 - William [双重侦察任务]</title>
     
-    <link rel="icon" type="image/png" href="logo.png?v=2026">
-    <link rel="apple-touch-icon" href="logo.png?v=2026">
+    <link rel="icon" type="image/png" href="logo.png?v=3.2">
+    <link rel="apple-touch-icon" href="logo.png?v=3.2">
     <meta name="apple-mobile-web-app-title" content="特工终端">
-    <meta name="application-name" content="特工终端">
     <meta name="theme-color" content="#020c1b">
 
     <style>
         :root {
             --neon-cyan: #64ffda;
             --dark-bg: #020c1b;
-            --panel-bg: rgba(17, 34, 64, 0.9); 
+            --panel-bg: rgba(17, 34, 64, 0.95); 
             --text-main: #ccd6f6;
             --text-muted: #8892b0;
             --neon-purple: #b392f0;
-            --accent-orange: #ff9f43;
         }
         
         body { 
-            background-color: var(--dark-bg); /* 兜底背景色，防止空白 */
-            background: linear-gradient(rgba(2, 12, 27, 0.9), rgba(2, 12, 27, 0.9)), 
+            background-color: var(--dark-bg);
+            background: linear-gradient(rgba(2, 12, 27, 0.92), rgba(2, 12, 27, 0.92)), 
                         url('bg-william.jpg') no-repeat center center fixed; 
             background-size: cover;
-            color: var(--text-main); 
-            margin: 0; 
-            padding: 20px; 
-            font-family: 'Courier New', 'PingFang SC', monospace; 
-            line-height: 1.6; 
+            color: var(--text-main); margin: 0; padding: 20px; 
+            font-family: 'Courier New', 'PingFang SC', monospace; line-height: 1.6; 
         }
         
-        .dashboard { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1000px; margin: 0 auto; }
         
         .header { 
             display: flex; justify-content: space-between; align-items: center; 
             border-bottom: 2px solid var(--neon-cyan); padding: 15px; margin-bottom: 30px;
             background: rgba(100, 255, 218, 0.05); border-radius: 8px;
         }
-        .back-home { 
-            display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; 
-            border: 1px solid var(--neon-cyan); color: var(--neon-cyan); text-decoration: none; 
-            font-size: 0.9rem; border-radius: 4px; transition: 0.3s; 
-        }
-        .back-home:hover { background: var(--neon-cyan); color: var(--dark-bg); box-shadow: 0 0 20px var(--neon-cyan); }
-        
-        .playlist-container {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px;
-        }
-        .video-card {
-            background: var(--panel-bg); border: 1px solid #233554; border-radius: 12px; padding: 15px;
-            cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 15px;
-        }
-        .video-card:hover { border-color: var(--neon-cyan); background: rgba(100, 255, 218, 0.1); }
-        .video-card.active { border-color: var(--neon-purple); border-width: 2px; box-shadow: 0 0 15px var(--neon-purple); }
-        
-        .panel { background: var(--panel-bg); border: 1px solid #233554; border-radius: 12px; padding: 30px; margin-bottom: 40px; backdrop-filter: blur(10px); }
-        
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 2px solid var(--neon-purple); margin-bottom: 40px; background: #000; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        
-        .task-block { margin-bottom: 40px; border-left: 4px solid var(--neon-purple); padding-left: 25px; position: relative; }
-        .task-title { color: var(--neon-purple); font-weight: bold; font-size: 1.25rem; margin-bottom: 10px; text-transform: uppercase; }
-        .dongdong-box { background: rgba(100, 255, 218, 0.07); border: 1px solid var(--neon-cyan); padding: 15px 20px; border-radius: 8px; margin: 15px 0; color: var(--neon-cyan); font-size: 0.95rem; }
 
-        .intel-input { 
+        .mission-tabs { display: flex; gap: 10px; margin-bottom: 0px; }
+        .tab-btn {
+            padding: 12px 25px; background: rgba(17, 34, 64, 0.5); border: 1px solid #233554;
+            color: var(--text-muted); cursor: pointer; border-radius: 8px 8px 0 0;
+            font-family: inherit; font-weight: bold; transition: 0.3s;
+        }
+        .tab-btn.active { 
+            background: var(--panel-bg); color: var(--neon-cyan); 
+            border-bottom: 3px solid var(--neon-cyan); border-color: var(--neon-cyan);
+            transform: translateY(-2px);
+        }
+
+        .mission-panel { 
+            display: none; background: var(--panel-bg); border: 1px solid var(--neon-cyan);
+            border-radius: 0 0 12px 12px; padding: 30px; margin-bottom: 40px; 
+            backdrop-filter: blur(10px);
+        }
+        .mission-panel.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--neon-purple); margin-bottom: 40px; background: #000; }
+        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .task-card { margin-bottom: 45px; border-left: 4px solid var(--neon-purple); padding-left: 25px; }
+        .task-title { color: var(--neon-purple); font-weight: bold; font-size: 1.3rem; margin-bottom: 12px; }
+        
+        .dongdong-box { 
+            background: rgba(100, 255, 218, 0.07); border: 1px solid var(--neon-cyan); 
+            padding: 18px 25px; border-radius: 8px; margin: 15px 0; color: var(--neon-cyan); 
+            font-size: 1.05rem; line-height: 1.8; font-weight: bold;
+        }
+
+        .cipher-input { 
             width: 100%; background: rgba(2, 12, 27, 0.85); border: 1px solid #233554; 
             color: var(--neon-cyan); padding: 20px; font-family: inherit; font-size: 1.1rem; 
-            border-radius: 8px; outline: none; resize: vertical; min-height: 200px; 
+            border-radius: 8px; outline: none; resize: vertical; min-height: 180px; 
             line-height: 1.8; box-sizing: border-box; transition: 0.4s; margin-top: 10px;
         }
-
-        .ultimate-mission { 
-            border-color: var(--accent-orange); background: rgba(255, 159, 67, 0.03); 
-            padding: 30px; border-radius: 12px; border: 2px dashed var(--accent-orange);
-        }
-        .vocab-chip { background: var(--accent-orange); color: #000; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; margin-right: 5px; display: inline-block; }
+        .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); }
 
         .submit-btn { 
-            width: 100%; padding: 20px; background: transparent; border: 2px solid var(--neon-purple); 
-            color: var(--neon-purple); font-family: inherit; font-size: 1.3rem; font-weight: bold; 
-            cursor: pointer; border-radius: 8px; transition: 0.3s; letter-spacing: 2px;
+            width: 100%; padding: 25px; background: transparent; border: 2px solid var(--neon-purple); 
+            color: var(--neon-purple); font-family: inherit; font-size: 1.4rem; font-weight: bold; 
+            cursor: pointer; border-radius: 8px; transition: 0.3s; letter-spacing: 4px; margin-top: 20px;
         }
-        .submit-btn:hover { background: var(--neon-purple); color: var(--dark-bg); }
+        .submit-btn:hover { background: var(--neon-purple); color: var(--dark-bg); box-shadow: 0 0 30px var(--neon-purple); }
+        
+        .back-home { color: var(--neon-cyan); text-decoration: none; border: 1px solid var(--neon-cyan); padding: 5px 15px; border-radius: 4px; }
     </style>
 </head>
 <body>
-    <div class="dashboard">
+    <div class="container">
         <header class="header">
             <a href="index.html" class="back-home">🏡 基地大厅</a>
             <div style="text-align: right;">
-                <span style="color:var(--neon-cyan)">AGENT WILLIAM</span><br>
-                <span style="color:var(--neon-purple); font-size: 0.8rem;">LEVEL 3 权限已激活</span>
+                <span style="color:var(--neon-cyan)">特工 WILLIAM</span> | 
+                <span style="color:var(--neon-purple)">LEVEL 3 档案库</span>
             </div>
         </header>
 
-        <h3 style="color: var(--neon-cyan); margin-bottom: 15px;">📁 历史任务视频库</h3>
-        <div class="playlist-container">
-            <div class="video-card" onclick="switchVideo('9-aUcW0Umc8', this)">
-                <div class="v-info">
-                    <h4 style="margin:0; color:#fff;">档案 01: 天空之桥</h4>
-                    <p style="margin:5px 0 0; font-size:0.8rem; color:var(--text-muted);">花江大桥工程侦察</p>
-                </div>
-            </div>
-            <div class="video-card active" onclick="switchVideo('prOs6Ala1uI', this)">
-                <div class="v-info">
-                    <h4 style="margin:0; color:#fff;">档案 02: 地心骇客</h4>
-                    <p style="margin:5px 0 0; font-size:0.8rem; color:var(--text-muted);">天山隧道地底潜航</p>
-                </div>
-            </div>
+        <div class="mission-tabs">
+            <button class="tab-btn active" onclick="showMission('m1', this)">档案 01：天空之桥</button>
+            <button class="tab-btn" onclick="showMission('m2', this)">档案 02：地心骇客</button>
         </div>
 
-        <section class="panel">
-            <h2 style="color: #fff; margin-bottom: 20px;">当前指令：OPERATION TIANSHAN</h2>
-            
-            <div class="video-wrapper">
-                <iframe id="mainPlayer" src="https://www.youtube.com/embed/prOs6Ala1uI" allowfullscreen></iframe>
+        <form id="williamForm">
+            <input type="hidden" name="特工身份" value="William Level 3">
+
+            <div id="m1" class="mission-panel active">
+                <h2 style="color: #fff; margin-bottom: 25px;">任务 01：花江峡谷大桥侦察</h2>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" allowfullscreen></iframe>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-title">🎯 问题 1：为什么要把大和小放在一起？</div>
+                    <div class="dongdong-box">
+                        💡 冬冬姨问你：<br>
+                        视频里提到了“125万座大山”，接着马上又提到了“5.7毫米”的细钢丝。一个是超级大的山，一个是超级小的钢丝。你觉得导演为什么要故意把它们放在一起说？如果不提细钢丝，光说山很大，听起来还这么厉害吗？
+                    </div>
+                    <textarea name="M1_一大一小" class="cipher-input" required placeholder="写写你的想法..."></textarea>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-title">🎯 问题 2：挑一个最酷的动作</div>
+                    <div class="dongdong-box">
+                        💡 冬冬姨问你：<br>
+                        造大桥的时候，有很多机器在动。哪个动作（比如：刺穿、拉起、飞跨等）让你觉得最酷、最有力量？挑一个你最喜欢的动词，写一句话，描绘出你脑海里的那个画面。
+                    </div>
+                    <textarea name="M1_最酷动词" class="cipher-input" required placeholder="我最喜欢的动词是：___。 它让我想到的画面是..."></textarea>
+                </div>
             </div>
 
-            <form id="level3Form">
-                <input type="hidden" name="身份" value="William Level 3">
-                <input type="hidden" name="_subject" value="【高阶情报】来自 William 的地心报告">
-                
-                <div class="task-block">
-                    <div class="task-title">🎯 模块 A：极限反差</div>
+            <div id="m2" class="mission-panel">
+                <h2 style="color: #fff; margin-bottom: 25px;">任务 02：天山胜利隧道侦察</h2>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/prOs6Ala1uI" allowfullscreen></iframe>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-title">🎯 问题 1：软东西怎么打败硬石头？</div>
                     <div class="dongdong-box">
-                        💡 <strong>冬冬姨点拨：</strong>观察 5:14。5.7 毫米的钢丝如何面对 125.8 万座大山？请模仿这种“极小控制极大”的写法，写一个你熟悉的事情（如乐高、编程）。
+                        💡 冬冬姨问你：<br>
+                        在视频 05:41 处讲到，山里的岩石会因为地震乱动。普通人肯定觉得“把墙修得越硬越厚才越安全”。但工程师却在墙里面塞了软绵绵的“泡沫”。软的东西怎么能打败硬的石头？用你自己的话解释一下这个聪明的办法。
                     </div>
-                    <textarea name="任务A" class="intel-input" required placeholder="录入情报..."></textarea>
+                    <textarea name="M2_软打败硬" class="cipher-input" required placeholder="因为软泡沫可以..."></textarea>
                 </div>
 
-                <div class="task-block">
-                    <div class="task-title">🎯 模块 B：证据链逻辑</div>
+                <div class="task-card">
+                    <div class="task-title">🎯 问题 2：冰天雪地里的暖气是哪来的？</div>
                     <div class="dongdong-box">
-                        💡 <strong>冬冬姨点拨：</strong>在 6:41，工程师说“没太多困难”。你会如何用“过去的积累”来证明你现在的成功不是偶然？
+                        💡 冬冬姨问你：<br>
+                        在视频 07:35 处讲到，外面是零下 40 度的冰雪，但工程师并没有买煤炭来烧暖气。他是去哪里“偷”来的热量给隧道保暖的？你觉得他这个办法聪明在哪里？
                     </div>
-                    <textarea name="任务B" class="intel-input" required placeholder="录入情报..."></textarea>
+                    <textarea name="M2_偷热量" class="cipher-input" required placeholder="工程师是从___借来的热量，我觉得聪明是因为..."></textarea>
                 </div>
+            </div>
 
-                <div class="task-block">
-                    <div class="task-title">🎯 模块 C：终极命名</div>
-                    <div class="dongdong-box">
-                        💡 <strong>冬冬姨点拨：</strong>将普通事物赋予科幻感的新名字。选一件桌上的东西重新定义它。
-                    </div>
-                    <textarea name="任务C" class="intel-input" required placeholder="例如：水杯 -> 细胞液补给仓..."></textarea>
-                </div>
-
-                <div class="task-block ultimate-mission">
-                    <div class="task-title" style="color: var(--accent-orange);">👑 终极演习：机甲突围</div>
-                    <div style="margin: 15px 0;">
-                        <span class="vocab-chip">蜿蜒曲折</span><span class="vocab-chip">史无前例</span><span class="vocab-chip">以柔克刚</span>
-                        <span class="vocab-chip">四两拨千斤</span><span class="vocab-chip">深渊</span><span class="vocab-chip">庞然大物</span>
-                    </div>
-                    <div class="dongdong-box" style="border-color: var(--accent-orange); color: var(--accent-orange);">
-                        💡 <strong>机甲图纸：</strong>请按照 [起、承、转、合] 组装文字机甲，至少使用上方 3 个词。
-                    </div>
-                    <textarea name="终极作业" class="intel-input" style="min-height: 300px; border-color: var(--accent-orange);" required placeholder="开始写作..."></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submitBtn">[ 发射地心骇客情报报告 ]</button>
-            </form>
-        </section>
+            <button type="submit" class="submit-btn" id="subBtn">[ 写完了，点击发射情报！ ]</button>
+        </form>
     </div>
 
     <script>
-        function switchVideo(id, el) {
-            document.getElementById('mainPlayer').src = 'https://www.youtube.com/embed/' + id;
-            document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
+        function showMission(missionId, btn) {
+            document.querySelectorAll('.mission-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(missionId).classList.add('active');
+            btn.classList.add('active');
         }
 
-        const form = document.getElementById('level3Form');
+        const form = document.getElementById('williamForm');
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = '正在上传...';
+            const btn = document.getElementById('subBtn');
+            btn.innerText = '正在加密传输情报...';
             try {
                 const response = await fetch("https://formspree.io/f/mrergerg", {
                     method: "POST",
@@ -185,11 +180,11 @@
                     headers: { 'Accept': 'application/json' }
                 });
                 if (response.ok) {
-                    alert('情报已安全送达基地！');
-                    btn.innerText = '[ 上传成功 ]';
+                    alert('特工 William，你的双重任务报告已安全送达！');
+                    btn.innerText = '[ 情报已送达 ]';
                 }
             } catch (err) {
-                alert('传输中断，请重试');
+                alert('传输信道受阻，请检查网络！');
                 btn.innerText = '[ 重新发射 ]';
             }
         });
