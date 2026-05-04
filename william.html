@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>特工终端 - William [双重侦察任务]</title>
     
-    <link rel="icon" type="image/png" href="logo.png?v=4.0">
-    <link rel="apple-touch-icon" href="logo.png?v=4.0">
+    <link rel="icon" type="image/png" href="logo.png?v=5.0">
+    <link rel="apple-touch-icon" href="logo.png?v=5.0">
     <meta name="apple-mobile-web-app-title" content="特工终端">
     <meta name="theme-color" content="#020c1b">
 
@@ -37,78 +37,71 @@
             background: rgba(100, 255, 218, 0.05); border-radius: 8px;
         }
 
-        /* 🚀 强化版：任务选择标签页 */
+        /* 🚀 巨无霸版：任务选择标签页 */
         .mission-tabs { 
-            display: flex; gap: 15px; margin-bottom: 0px; padding: 0 10px;
+            display: flex; gap: 15px; margin-bottom: 0px; 
         }
         .tab-btn {
             position: relative;
-            padding: 16px 35px; 
-            background: linear-gradient(180deg, rgba(17, 34, 64, 0.8) 0%, rgba(2, 12, 27, 0.9) 100%);
-            border: 2px solid #233554;
+            flex: 1; /* 让两个按钮均分宽度，填满屏幕 */
+            padding: 22px 20px; /* 大幅增加按钮高度 */
+            background: rgba(30, 41, 59, 0.95); /* 未选中时，稍微比背景亮一点点 */
+            border: 2px solid #475569;
             border-bottom: none;
-            color: var(--text-muted); 
+            color: #94a3b8; 
             cursor: pointer; 
-            border-radius: 12px 12px 0 0;
+            border-radius: 16px 16px 0 0; /* 更圆润的机甲边角 */
             font-family: inherit; 
             font-weight: bold; 
-            font-size: 1.2rem;
+            font-size: 1.5rem; /* 字体极其醒目 */
             transition: all 0.3s ease;
-            overflow: hidden; /* 保证扫光不会漏出边缘 */
+            overflow: hidden; 
+            text-align: center;
         }
         
-        /* 💡 激活状态：呼吸灯 + 外圈光 */
+        /* 💡 激活状态：极强反差的亮色底色 */
         .tab-btn.active { 
-            background: var(--panel-bg); 
-            color: #fff; 
-            border: 2px solid var(--neon-cyan);
+            background: var(--neon-cyan); /* 直接变成耀眼的荧光青色 */
+            color: var(--dark-bg); /* 文字变成黑色，对比度拉满 */
+            border: 2px solid #fff; /* 加上纯白边框，彻底跳出暗黑背景 */
             border-bottom: none;
-            transform: translateY(-4px);
-            animation: neonPulse 2s infinite alternate; /* 呼吸光动画 */
+            transform: translateY(-6px); /* 弹得更高 */
+            box-shadow: 0 -10px 30px rgba(100, 255, 218, 0.5); /* 向上发强光 */
             z-index: 10;
         }
 
-        /* ✨ 炫酷扫光特效（特工专属） */
+        /* ✨ 炫酷扫光特效：变成白色高光 */
         .tab-btn.active::before {
             content: '';
             position: absolute;
             top: 0; left: -150%;
             width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
             transform: skewX(-25deg);
-            animation: sweepLight 4s infinite; /* 每4秒扫过一道光 */
+            animation: sweepLight 3s infinite; /* 每3秒扫一次光 */
         }
 
-        /* 呼吸光芒动画 */
-        @keyframes neonPulse {
-            0% { box-shadow: 0 -5px 15px rgba(100, 255, 218, 0.2), inset 0 5px 10px rgba(100, 255, 218, 0.1); text-shadow: 0 0 5px rgba(100, 255, 218, 0.5); }
-            100% { box-shadow: 0 -5px 30px rgba(100, 255, 218, 0.7), inset 0 5px 20px rgba(100, 255, 218, 0.4); text-shadow: 0 0 15px var(--neon-cyan); }
-        }
-
-        /* 激光扫过动画 */
         @keyframes sweepLight {
             0% { left: -150%; }
-            20% { left: 200%; } /* 光效迅速扫过 */
-            100% { left: 200%; } /* 停顿一会再扫 */
+            30% { left: 200%; }
+            100% { left: 200%; }
         }
 
-        /* 任务面板调整，配合发光标签 */
         .mission-panel { 
             display: none; background: var(--panel-bg); 
-            border: 2px solid var(--neon-cyan); /* 加粗边框与标签呼应 */
-            border-radius: 0 12px 12px 12px; padding: 30px; margin-bottom: 40px; 
+            border: 3px solid var(--neon-cyan); /* 面板边框加粗，与高亮按钮连成一体 */
+            border-radius: 0 0 12px 12px; padding: 30px; margin-bottom: 40px; 
             backdrop-filter: blur(10px); position: relative; z-index: 5;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .mission-panel.active { display: block; animation: fadeIn 0.5s; }
+        .mission-panel.active { display: block; animation: fadeIn 0.4s; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 2px solid var(--neon-purple); margin-bottom: 40px; background: #000; }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        .task-card { margin-bottom: 45px; border-left: 4px solid var(--neon-purple); padding-left: 25px; }
-        .task-title { color: var(--neon-purple); font-weight: bold; font-size: 1.3rem; margin-bottom: 12px; }
+        .task-card { margin-bottom: 45px; border-left: 5px solid var(--neon-purple); padding-left: 25px; }
+        .task-title { color: var(--neon-purple); font-weight: bold; font-size: 1.35rem; margin-bottom: 12px; }
         
         .dongdong-box { 
             background: rgba(100, 255, 218, 0.07); border: 1px solid var(--neon-cyan); 
@@ -118,15 +111,15 @@
 
         .cipher-input { 
             width: 100%; background: rgba(2, 12, 27, 0.85); border: 1px solid #233554; 
-            color: var(--neon-cyan); padding: 20px; font-family: inherit; font-size: 1.1rem; 
+            color: var(--neon-cyan); padding: 20px; font-family: inherit; font-size: 1.15rem; 
             border-radius: 8px; outline: none; resize: vertical; min-height: 180px; 
             line-height: 1.8; box-sizing: border-box; transition: 0.4s; margin-top: 10px;
         }
         .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); box-shadow: 0 0 15px rgba(179, 146, 240, 0.2); }
 
         .submit-btn { 
-            width: 100%; padding: 25px; background: transparent; border: 2px solid var(--neon-purple); 
-            color: var(--neon-purple); font-family: inherit; font-size: 1.4rem; font-weight: bold; 
+            width: 100%; padding: 25px; background: transparent; border: 3px solid var(--neon-purple); 
+            color: var(--neon-purple); font-family: inherit; font-size: 1.5rem; font-weight: bold; 
             cursor: pointer; border-radius: 8px; transition: 0.3s; letter-spacing: 4px; margin-top: 20px;
         }
         .submit-btn:hover { background: var(--neon-purple); color: var(--dark-bg); box-shadow: 0 0 30px var(--neon-purple); }
@@ -208,11 +201,8 @@
 
     <script>
         function showMission(missionId, btn) {
-            // 隐藏所有面板和取消所有按钮的高亮光效
             document.querySelectorAll('.mission-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            
-            // 给当前点击的模块加上闪光和显示效果
             document.getElementById(missionId).classList.add('active');
             btn.classList.add('active');
         }
