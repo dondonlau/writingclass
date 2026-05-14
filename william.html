@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特工终端 - William [双重侦察任务]</title>
+    <title>特工终端 - William [地心骇客任务]</title>
     
-    <link rel="icon" type="image/png" href="logo.png?v=5.0">
-    <link rel="apple-touch-icon" href="logo.png?v=5.0">
+    <link rel="icon" type="image/png" href="logo.png?v=7.0">
+    <link rel="apple-touch-icon" href="logo.png?v=7.0">
     <meta name="apple-mobile-web-app-title" content="特工终端">
     <meta name="theme-color" content="#020c1b">
 
@@ -18,6 +18,7 @@
             --text-main: #ccd6f6;
             --text-muted: #8892b0;
             --neon-purple: #b392f0;
+            --accent-orange: #ff9f43;
         }
         
         body { 
@@ -33,69 +34,30 @@
         
         .header { 
             display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 2px solid var(--neon-cyan); padding: 15px; margin-bottom: 40px;
+            border-bottom: 2px solid var(--neon-cyan); padding: 15px; margin-bottom: 30px;
             background: rgba(100, 255, 218, 0.05); border-radius: 8px;
         }
 
-        /* 🚀 巨无霸版：任务选择标签页 */
-        .mission-tabs { 
-            display: flex; gap: 15px; margin-bottom: 0px; 
-        }
-        .tab-btn {
-            position: relative;
-            flex: 1; /* 让两个按钮均分宽度，填满屏幕 */
-            padding: 22px 20px; /* 大幅增加按钮高度 */
-            background: rgba(30, 41, 59, 0.95); /* 未选中时，稍微比背景亮一点点 */
-            border: 2px solid #475569;
-            border-bottom: none;
-            color: #94a3b8; 
-            cursor: pointer; 
-            border-radius: 16px 16px 0 0; /* 更圆润的机甲边角 */
-            font-family: inherit; 
-            font-weight: bold; 
-            font-size: 1.5rem; /* 字体极其醒目 */
-            transition: all 0.3s ease;
-            overflow: hidden; 
-            text-align: center;
-        }
-        
-        /* 💡 激活状态：极强反差的亮色底色 */
-        .tab-btn.active { 
-            background: var(--neon-cyan); /* 直接变成耀眼的荧光青色 */
-            color: var(--dark-bg); /* 文字变成黑色，对比度拉满 */
-            border: 2px solid #fff; /* 加上纯白边框，彻底跳出暗黑背景 */
-            border-bottom: none;
-            transform: translateY(-6px); /* 弹得更高 */
-            box-shadow: 0 -10px 30px rgba(100, 255, 218, 0.5); /* 向上发强光 */
-            z-index: 10;
+        .mission-title-box {
+            background: var(--neon-cyan); color: var(--dark-bg); padding: 20px;
+            border-radius: 12px 12px 0 0; text-align: center; font-size: 1.8rem;
+            font-weight: bold; border: 2px solid #fff; border-bottom: none;
+            box-shadow: 0 -10px 30px rgba(100, 255, 218, 0.5); position: relative; overflow: hidden;
         }
 
-        /* ✨ 炫酷扫光特效：变成白色高光 */
-        .tab-btn.active::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -150%;
-            width: 50%; height: 100%;
+        .mission-title-box::before {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
-            transform: skewX(-25deg);
-            animation: sweepLight 3s infinite; /* 每3秒扫一次光 */
+            transform: skewX(-25deg); animation: sweepLight 3s infinite; 
         }
 
-        @keyframes sweepLight {
-            0% { left: -150%; }
-            30% { left: 200%; }
-            100% { left: 200%; }
-        }
+        @keyframes sweepLight { 0% { left: -150%; } 30% { left: 200%; } 100% { left: 200%; } }
 
         .mission-panel { 
-            display: none; background: var(--panel-bg); 
-            border: 3px solid var(--neon-cyan); /* 面板边框加粗，与高亮按钮连成一体 */
+            background: var(--panel-bg); border: 3px solid var(--neon-cyan); 
             border-radius: 0 0 12px 12px; padding: 30px; margin-bottom: 40px; 
             backdrop-filter: blur(10px); position: relative; z-index: 5;
         }
-        .mission-panel.active { display: block; animation: fadeIn 0.4s; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 2px solid var(--neon-purple); margin-bottom: 40px; background: #000; }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
@@ -109,10 +71,16 @@
             font-size: 1.05rem; line-height: 1.8; font-weight: bold;
         }
 
+        .vocab-box {
+            background: rgba(2, 12, 27, 0.5); padding: 15px; border-radius: 8px;
+            border: 1px dashed var(--neon-purple); margin-bottom: 20px;
+        }
+        .vocab-word { font-size: 1.2rem; color: #fff; font-weight: bold; background: var(--neon-purple); padding: 2px 10px; border-radius: 4px; margin-right: 10px; }
+
         .cipher-input { 
             width: 100%; background: rgba(2, 12, 27, 0.85); border: 1px solid #233554; 
             color: var(--neon-cyan); padding: 20px; font-family: inherit; font-size: 1.15rem; 
-            border-radius: 8px; outline: none; resize: vertical; min-height: 180px; 
+            border-radius: 8px; outline: none; resize: vertical; min-height: 150px; 
             line-height: 1.8; box-sizing: border-box; transition: 0.4s; margin-top: 10px;
         }
         .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); box-shadow: 0 0 15px rgba(179, 146, 240, 0.2); }
@@ -130,103 +98,132 @@
 <body>
     <div class="container">
         <header class="header">
-            <a href="index.html" class="back-home">🏡 基地大厅</a>
+            <a href="index.html" class="back-home">🏡 冬冬姨的写作基地</a>
             <div style="text-align: right;">
                 <span style="color:var(--neon-cyan)">特工 WILLIAM</span> | 
-                <span style="color:var(--neon-purple)">LEVEL 3 档案库</span>
+                <span style="color:var(--neon-purple)">LEVEL 3 绝密档案</span>
             </div>
         </header>
 
-        <div class="mission-tabs">
-            <button class="tab-btn active" onclick="showMission('m1', this)">📡 档案 01：天空之桥</button>
-            <button class="tab-btn" onclick="showMission('m2', this)">📡 档案 02：地心骇客</button>
-        </div>
-
         <form id="williamForm">
             <input type="hidden" name="特工身份" value="William Level 3">
+            <input type="hidden" name="_subject" value="【特工作业】来自 William 的地心骇客全套报告">
 
-            <div id="m1" class="mission-panel active">
-                <h2 style="color: #fff; margin-bottom: 25px; border-bottom: 1px dashed #233554; padding-bottom: 15px;">当前播放：花江峡谷大桥侦察影像</h2>
-                <div class="video-box">
-                    <iframe src="https://www.youtube.com/embed/9-aUcW0Umc8" allowfullscreen></iframe>
-                </div>
-
-                <div class="task-card">
-                    <div class="task-title">🎯 问题 1：为什么要把大和小放在一起？</div>
-                    <div class="dongdong-box">
-                        💡 冬冬姨问你：<br>
-                        视频里提到了“125万座大山”，接着马上又提到了“5.7毫米”的细钢丝。一个是超级大的山，一个是超级小的钢丝。你觉得导演为什么要故意把它们放在一起说？如果不提细钢丝，光说山很大，听起来还这么厉害吗？
-                    </div>
-                    <textarea name="M1_一大一小" class="cipher-input" required placeholder="写写你的想法..."></textarea>
-                </div>
-
-                <div class="task-card">
-                    <div class="task-title">🎯 问题 2：挑一个最酷的动作</div>
-                    <div class="dongdong-box">
-                        💡 冬冬姨问你：<br>
-                        造大桥的时候，有很多机器在动。哪个动作（比如：刺穿、拉起、飞跨等）让你觉得最酷、最有力量？挑一个你最喜欢的动词，写一句话，描绘出你脑海里的那个画面。
-                    </div>
-                    <textarea name="M1_最酷动词" class="cipher-input" required placeholder="我最喜欢的动词是：___。 它让我想到的画面是..."></textarea>
-                </div>
+            <div class="mission-title-box">
+                📡 核心档案：地心骇客 (天山胜利隧道)
             </div>
-
-            <div id="m2" class="mission-panel">
-                <h2 style="color: #fff; margin-bottom: 25px; border-bottom: 1px dashed #233554; padding-bottom: 15px;">当前播放：天山胜利隧道侦察影像</h2>
+            <div class="mission-panel">
                 <div class="video-box">
                     <iframe src="https://www.youtube.com/embed/prOs6Ala1uI" allowfullscreen></iframe>
                 </div>
 
+                <!-- 任务 1：侦察理解 -->
                 <div class="task-card">
-                    <div class="task-title">🎯 问题 1：软东西怎么打败硬石头？</div>
+                    <div class="task-title">🎯 任务 1：软东西怎么打败硬石头？</div>
                     <div class="dongdong-box">
                         💡 冬冬姨问你：<br>
-                        在视频 05:41 处讲到，山里的岩石会因为地震乱动。普通人肯定觉得“把墙修得越硬越厚才越安全”。但工程师却在墙里面塞了软绵绵的“泡沫”。软的东西怎么能打败硬的石头？用你自己的话解释一下这个聪明的办法。
+                        在视频 05:41 处讲到，普通人觉得“把墙修得越硬越厚才越安全”。但工程师却在墙里面塞了软绵绵的“泡沫”。软的东西怎么能打败硬的石头？用你自己的话解释一下。
                     </div>
-                    <textarea name="M2_软打败硬" class="cipher-input" required placeholder="因为软泡沫可以..."></textarea>
+                    <textarea name="M2_软打败硬" class="cipher-input" required placeholder="因为如果墙修得特别硬..."></textarea>
                 </div>
 
+                <!-- 任务 2：侦察理解 -->
                 <div class="task-card">
-                    <div class="task-title">🎯 问题 2：冰天雪地里的暖气是哪来的？</div>
+                    <div class="task-title">🎯 任务 2：冰天雪地里的暖气是哪来的？</div>
                     <div class="dongdong-box">
                         💡 冬冬姨问你：<br>
-                        在视频 07:35 处讲到，外面是零下 40 度的冰雪，但工程师并没有买煤炭来烧暖气。他是去哪里“偷”来的热量给隧道保暖的？你觉得他这个办法聪明在哪里？
+                        在视频 07:35 处讲到，外面是零下 40 度的冰雪，但工程师没有买煤炭来烧暖气。他是去哪里“偷”来的热量？你觉得他这个办法聪明在哪里？
                     </div>
                     <textarea name="M2_偷热量" class="cipher-input" required placeholder="工程师是从___借来的热量，我觉得聪明是因为..."></textarea>
                 </div>
+
+                <!-- 任务 3：词汇造句 -->
+                <div class="task-card">
+                    <div class="task-title">🎯 任务 3：装备升级（特工词汇造句）</div>
+                    <div class="dongdong-box">
+                        💡 冬冬姨的词汇兵工厂：<br>
+                        视频里藏着几个非常厉害的“四字武器”。请你理解它们，并用它们自己造个句！
+                    </div>
+                    
+                    <div class="vocab-box">
+                        <span class="vocab-word">蜿蜒曲折</span> <span style="color: #ccc; font-size: 0.9rem;">(形容道路弯弯曲曲，很难走)</span>
+                        <textarea name="造句_蜿蜒曲折" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="请用【蜿蜒曲折】造句 (比如形容一条小河、或者山路)..."></textarea>
+                    </div>
+
+                    <div class="vocab-box">
+                        <span class="vocab-word">史无前例</span> <span style="color: #ccc; font-size: 0.9rem;">(历史上从来没发生过这么牛的事)</span>
+                        <textarea name="造句_史无前例" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="请用【史无前例】造句 (比如形容你做到的一件特别厉害的事)..."></textarea>
+                    </div>
+                </div>
+
+                <!-- 任务 4：终极小段落 -->
+                <div class="task-card" style="border-left-color: var(--accent-orange);">
+                    <div class="task-title" style="color: var(--accent-orange);">👑 任务 4：终极演习（机甲驾驶员日记）</div>
+                    <div class="dongdong-box" style="border-color: var(--accent-orange); color: var(--accent-orange);">
+                        💡 冬冬姨的实战演习：<br>
+                        视频里那台几千吨重的“胜利号”掘进机，简直就是一台能在地下打怪兽的巨型机甲！<br><br>
+                        <strong>👉 你的任务：</strong>想象你是“胜利号”机甲的驾驶员，现在你正在天山地下 1000 米深的地方。前面是比钢铁还硬的岩石，请你写一篇简短的特工日记（100字左右）。<br>
+                        <strong>👉 必须写出：</strong>周围黑漆漆的环境有多可怕？你是怎么驾驶机甲把大石头切碎的？
+                    </div>
+                    <textarea name="小段落_机甲日记" class="cipher-input" style="min-height: 250px; border-color: var(--accent-orange);" required placeholder="特工日记 2026年4月：
+今天，我驾驶着庞大的胜利号机甲来到了地底深处。这里的环境..."></textarea>
+                </div>
             </div>
 
-            <button type="submit" class="submit-btn" id="subBtn">[ 写完了，点击发射全套情报！ ]</button>
+            <button type="submit" class="submit-btn" id="subBtn">[ 全套任务完成，点击发射！ ]</button>
         </form>
     </div>
 
-    <script>
-        function showMission(missionId, btn) {
-            document.querySelectorAll('.mission-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(missionId).classList.add('active');
-            btn.classList.add('active');
-        }
+    <!-- 弹窗特效 -->
+    <div id="successModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s;">
+        <div id="modalBox" style="background: #112240; border: 2px solid var(--neon-cyan); border-radius: 12px; padding: 40px; text-align: center; max-width: 450px; transform: scale(0.9); transition: 0.3s;">
+            <span style="font-size: 4rem; display: block; margin-bottom: 20px;">🎖️</span>
+            <h2 style="color: var(--neon-cyan);">战术目标全清！</h2>
+            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px;">特工 William，你的问答、造句和机甲日记已全部上传至指挥中心！冬冬姨对你的战斗力非常满意！</p>
+            <button onclick="closeModal()" style="background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 35px; border-radius: 4px; cursor: pointer; font-weight: bold;">[ 退出系统 ]</button>
+        </div>
+    </div>
 
+    <script>
         const form = document.getElementById('williamForm');
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('subBtn');
-            btn.innerText = '正在加密传输情报...';
+            btn.innerText = '正在加密传输全套情报...';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.7';
+
             try {
                 const response = await fetch("https://formspree.io/f/mrergerg", {
                     method: "POST",
                     body: new FormData(form),
                     headers: { 'Accept': 'application/json' }
                 });
+                
                 if (response.ok) {
-                    alert('特工 William，你的双重任务报告已安全送达！');
-                    btn.innerText = '[ 情报已送达 ]';
+                    form.reset();
+                    document.getElementById('successModal').style.display = 'flex';
+                    setTimeout(() => { 
+                        document.getElementById('successModal').style.opacity = '1'; 
+                        document.getElementById('modalBox').style.transform = 'scale(1)'; 
+                    }, 50);
+                } else {
+                    alert('传输信道受阻，请检查网络！');
                 }
             } catch (err) {
-                alert('传输信道受阻，请检查网络！');
-                btn.innerText = '[ 重新发射 ]';
+                alert('网络连接错误！');
+            } finally {
+                btn.innerText = '[ 全套任务完成，点击发射！ ]';
+                btn.style.pointerEvents = 'auto';
+                btn.style.opacity = '1';
             }
         });
+
+        function closeModal() {
+            document.getElementById('successModal').style.opacity = '0';
+            document.getElementById('modalBox').style.transform = 'scale(0.8)';
+            setTimeout(() => { document.getElementById('successModal').style.display = 'none'; }, 400);
+        }
     </script>
 </body>
 </html>
