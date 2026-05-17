@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特工终端 - William [地心骇客任务]</title>
+    <title>特工终端 - William [超级蜀道突围]</title>
     
-    <link rel="icon" type="image/png" href="logo.png?v=8.0">
-    <link rel="apple-touch-icon" href="logo.png?v=8.0">
+    <link rel="icon" type="image/png" href="logo.png?v=9.1">
+    <link rel="apple-touch-icon" href="logo.png?v=9.1">
     <meta name="apple-mobile-web-app-title" content="特工终端">
     <meta name="theme-color" content="#020c1b">
 
@@ -71,6 +71,15 @@
             font-size: 1.05rem; line-height: 1.8; font-weight: bold;
         }
 
+        .blank-group { margin-bottom: 22px; font-size: 1.15rem; color: #fff; line-height: 2; }
+        .blank-input { 
+            background: transparent; border: none; border-bottom: 2px solid var(--neon-cyan); 
+            color: var(--accent-orange); width: 160px; text-align: center; 
+            font-family: inherit; font-size: 1.15rem; font-weight: bold; outline: none; 
+            transition: 0.3s;
+        }
+        .blank-input:focus { border-bottom-color: var(--neon-purple); box-shadow: 0 4px 10px rgba(179,146,240,0.2); }
+
         .vocab-box {
             background: rgba(2, 12, 27, 0.5); padding: 15px; border-radius: 8px;
             border: 1px dashed var(--neon-purple); margin-bottom: 20px;
@@ -83,7 +92,7 @@
             border-radius: 8px; outline: none; resize: vertical; min-height: 150px; 
             line-height: 1.8; box-sizing: border-box; transition: 0.4s; margin-top: 10px;
         }
-        .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); box-shadow: 0 0 15px rgba(179, 146, 240, 0.2); }
+        .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); }
 
         .submit-btn { 
             width: 100%; padding: 25px; background: transparent; border: 3px solid var(--neon-purple); 
@@ -107,83 +116,111 @@
 
         <form id="williamForm">
             <input type="hidden" name="特工身份" value="William Level 3">
-            <input type="hidden" name="_subject" value="【特工作业】来自 William 的地心骇客全套报告">
+            <input type="hidden" name="_subject" value="【特工作业】来自 William 的超级蜀道通关报告">
 
             <div class="mission-title-box">
-                📡 核心档案：地心骇客 (天山胜利隧道)
+                📡 核心档案：超级蜀道突围战
             </div>
             <div class="mission-panel">
                 <div class="video-box">
-                    <iframe src="https://www.youtube.com/embed/prOs6Ala1uI" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/7GRhGvMJHkA" allowfullscreen></iframe>
                 </div>
 
-                <!-- 新任务 1：无视天气 -->
                 <div class="task-card">
-                    <div class="task-title">🎯 任务 1：无视天气的“地底穿梭机”</div>
+                    <div class="task-title">🎯 任务 1: 大地图沙盘 (四川盆地三路大突围)</div>
+                    <div class="dongdong-box">
+                        💡 冬冬姨点拨：<br>
+                        如果把四川盆地看成一个巨大的“大铁桶”，大自然在四周修起了高高的高墙。我们的基建大军分成了北线、南线、西线三路发起突围。请你完整观看视频，帮冬冬姨补全这份《突围战报》：
+                    </div>
+                    
+                    <p style="color: #fff; font-weight: bold; margin-top: 20px;">[A路线・向北冲向陕西]</p>
+                    <textarea name="北线_秦岭" class="cipher-input" required placeholder="中间挡着哪座像巨龙一样的超级大山脉？工程师用了什么绝招，把 11 小时的车程缩短到了 3 小时？"></textarea>
+                    
+                    <p style="color: #fff; font-weight: bold; margin-top: 20px;">[B路线・向南冲向云贵]</p>
+                    <textarea name="南线_云贵" class="cipher-input" required placeholder="冲上云贵高原有整整 2000 米的超级大落差！视频里那座像过山车一样的大桥叫什么名字？工程师让汽车在山肚子里怎么走，才爬升上去的？"></textarea>
+                    
+                    <p style="color: #fff; font-weight: bold; margin-top: 20px;">[C路线・向西冲向西藏]</p>
+                    <textarea name="西线_西藏" class="cipher-input" required placeholder="这里有世界最密集的“高山峡谷群”。在跨越凶猛的大渡河时，因为到处是断裂带，施工作业人员平均一天只能前进多少米？"></textarea>
+                </div>
+
+                <div class="task-card" style="border-left-color: var(--accent-orange);">
+                    <div class="task-title" style="color: var(--accent-orange);">🔐 任务 2: 地理屏障特工速记墙</div>
+                    <div class="dongdong-box" style="border-color: var(--accent-orange); color: var(--accent-orange);">
+                        💡 冬冬姨的数字密码锁：<br>
+                        请盯紧视频里出现的关键线索和时间点，把下面这段关于地理防线的绝密情报补充完整！
+                    </div>
+
+                    <div style="background: rgba(2, 12, 27, 0.4); padding: 25px; border-radius: 8px; border: 1px solid #233554;">
+                        <div class="blank-group">
+                            ⏱️ 关卡 01 (视频 02:13)：秦岭就像一堵巨大的高墙，挡在了 
+                            <input type="text" name="填空_四川盆地1" class="blank-input" required placeholder="哪个盆地？"> 与 
+                            <input type="text" name="填空_关中平原" class="blank-input" required placeholder="哪个平原？"> 之间。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 02 (视频 04:54)：云贵高原高耸在南方，它与低洼的 
+                            <input type="text" name="填空_四川盆地2" class="blank-input" required placeholder="哪个盆地？"> 之间，有着整整 2000 米的 
+                            <input type="text" name="填空_海拔落差" class="blank-input" required placeholder="什么落差？">。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 03 (视频 08:05)：巨大的 
+                            <input type="text" name="填空_横断山脉" class="blank-input" required placeholder="什么山脉？"> 挡在了四川与 
+                            <input type="text" name="填空_青藏高原" class="blank-input" required placeholder="哪个高原？"> 之间，形成了世界最密集的峡谷群。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 04 (视频 08:09)：这片极为险峻的区域，是由 
+                            <input type="text" name="填空_山脉数" class="blank-input" style="width: 70px;" required placeholder="几条？"> 条山脉和 
+                            <input type="text" name="填空_大江数" class="blank-input" style="width: 70px;" required placeholder="几条？"> 条大江共同组成的天然屏障。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 05 (视频 10:10)：汹涌奔腾的 
+                            <input type="text" name="填空_大渡河" class="blank-input" required placeholder="哪条大河？"> 横切在大山之中，是通往康巴藏区必须跨越的第一道天堑。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-title">🎯 任务 3: 大渡河上的“超级膨胀螺丝”</div>
                     <div class="dongdong-box">
                         💡 冬冬姨问你：<br>
-                        视频 7:35 之后讲到，以前翻越天山要走极其危险的雪山公路，一到冬天就会遭遇雪崩，或者被大雪封山。但现在，如果我们在大山肚子里挖通了这条隧道，外面的暴风雪还能拦住我们吗？有了这条隧道，人们获得了什么样神奇的“超能力”？
+                        在修大渡河兴康特大桥时（视频 10:50 处），两岸全是陡峭的悬崖，没地方放几万吨重的混凝土去拉住大桥的钢缆。工程师想出了一个绝招：在山肚子里挖了一条 159 米长的巨大隧道，把大桥的钢缆死死地“钉”在山里面。这个办法像不像你在家里钉墙面时用到的什么工具？它聪明在哪里？
                     </div>
-                    <textarea name="M2_天气超能力" class="cipher-input" required placeholder="有了这条地底隧道，人们获得了..."></textarea>
+                    <textarea name="M2_膨胀螺丝" class="cipher-input" required placeholder="用你自己的大白话来解释一下..."></textarea>
                 </div>
 
-                <!-- 新任务 2：真正的英雄 -->
                 <div class="task-card">
-                    <div class="task-title">🎯 任务 2：真正的幕后英雄是谁？</div>
-                    <div class="dongdong-box">
-                        💡 冬冬姨问你：<br>
-                        视频结尾，伟大的超级工程终于完工了。你看到了几千吨重的机器在咆哮，也看到了欢呼的工程师们。你觉得，是这台巨大的“胜利号”机器更厉害，还是想出“以柔克刚”、“借用地球温度”这些办法的工程师更厉害？为什么？
-                    </div>
-                    <textarea name="M2_幕后英雄" class="cipher-input" required placeholder="我觉得更厉害的是___，因为..."></textarea>
-                </div>
-
-                <!-- 任务 3：词汇造句 -->
-                <div class="task-card">
-                    <div class="task-title">🎯 任务 3：装备升级（特工词汇造句）</div>
+                    <div class="task-title">🎯 任务 4: 装备升级 (新特工词汇造句)</div>
                     <div class="dongdong-box">
                         💡 冬冬姨的词汇兵工厂：<br>
-                        请搞懂下面这两个超酷的“四字武器”，并用它们自己造个句！
+                        请搞懂视频里出现的这两个威力巨大的“新武器”，并用它们自己造个句！
                     </div>
                     
                     <div class="vocab-box">
-                        <span class="vocab-word">一己之力</span> <span style="color: #ccc; font-size: 0.9rem;">(形容单靠自己一个人的力量，完成了一件很厉害、很难的事)</span>
-                        <textarea name="造句_一己之力" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="请用【一己之力】造句 (比如形容某个超级英雄，或者你自己解决了一个大难题)..."></textarea>
+                        <span class="vocab-word">拔地而起</span> <span style="color: #ccc; font-size: 0.9rem;">(视频 06:29 处。形容高大的建筑、山峰等从地面上突然冒出来，非常有力量感)</span>
+                        <textarea name="造句_拔地而起" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="挑战：用【拔地而起】造句（比如形容游戏里的超级城堡，或者电影里突然出现的机甲基地）..."></textarea>
                     </div>
 
                     <div class="vocab-box">
-                        <span class="vocab-word">史无前例</span> <span style="color: #ccc; font-size: 0.9rem;">(历史上从来没发生过这么牛的事)</span>
-                        <textarea name="造句_史无前例" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="请用【史无前例】造句 (比如形容一项伟大的超级工程，或者一场超酷的比赛)..."></textarea>
+                        <span class="vocab-word">如履平地</span> <span style="color: #ccc; font-size: 0.9rem;">(视频 07:11 处。履：踩、走。形容在非常危险、陡峭的地方走路，感觉像在平地上散步一样轻松)</span>
+                        <textarea name="造句_如履平地" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="挑战：用【如履平地】造句（比如形容蜘蛛侠飞檐走壁，或者高空跑酷）..."></textarea>
                     </div>
                 </div>
 
-                <!-- 任务 4：终极小段落（带挑战版） -->
-                <div class="task-card" style="border-left-color: var(--accent-orange);">
-                    <div class="task-title" style="color: var(--accent-orange);">👑 任务 4：终极演习（机甲突发危机日记）</div>
-                    <div class="dongdong-box" style="border-color: var(--accent-orange); color: var(--accent-orange);">
-                        💡 冬冬姨的实战演习（附带终极 Challenge！）：<br>
-                        想象你是那台几千吨重的“胜利号”机甲驾驶员，现在你正在天山地下 1000 米深的地方。<br><br>
-                        ⚠️ <strong>突发挑战（Challenge）：你的机甲绝对不能一直顺顺利利地挖下去！请你在日记里给自己“制造一个大危机”！</strong><br>
-                        （比如：挖着挖着前面突然出现了神秘的地下冰河？或者遭遇了可怕的岩爆？或者发生了地震断层断裂？）<br><br>
-                        <strong>👉 你必须在日记里写出这 2 点：</strong><br>
-                        1. 警报响起！你碰到了什么可怕的大麻烦？<br>
-                        2. 作为顶尖驾驶员，你用了什么聪明的办法（或者利用视频里的知识）化解了这个危机？
-                    </div>
-                    <textarea name="小段落_危机日记" class="cipher-input" style="min-height: 250px; border-color: var(--accent-orange);" required placeholder="特工日记 2026年5月：
-今天，我驾驶着胜利号机甲在地底潜航。正当我以为一切顺利的时候，警报突然响了起来，我遇到了一个巨大的麻烦..."></textarea>
-                </div>
             </div>
 
-            <button type="submit" class="submit-btn" id="subBtn">[ 全套紧急报告已完成，请求发射！ ]</button>
+            <button type="submit" class="submit-btn" id="subBtn">[ 全套任务解锁，请求发射情报！ ]</button>
         </form>
     </div>
 
-    <!-- 弹窗特效 -->
     <div id="successModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s;">
         <div id="modalBox" style="background: #112240; border: 2px solid var(--neon-cyan); border-radius: 12px; padding: 40px; text-align: center; max-width: 450px; transform: scale(0.9); transition: 0.3s;">
             <span style="font-size: 4rem; display: block; margin-bottom: 20px;">🎖️</span>
-            <h2 style="color: var(--neon-cyan);">机甲危机解除！</h2>
-            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px;">特工 William，你的危机处理日记和特工报告已全部上传！冬冬姨对你冷静的大脑和强悍的词汇量表示极度赞赏！</p>
-            <button onclick="closeModal()" style="background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 35px; border-radius: 4px; cursor: pointer; font-weight: bold;">[ 退出通讯频道 ]</button>
+            <h2 style="color: var(--neon-cyan);">战术目标全清！</h2>
+            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px;">特工 William，你的突围战报、全套地理防线情报以及词汇武器已经全部安全上传！冬冬姨在主控室为你骄傲！</p>
+            <button onclick="closeModal()" style="background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 35px; border-radius: 4px; cursor: pointer; font-weight: bold;">[ 离开终端 ]</button>
         </div>
     </div>
 
@@ -192,7 +229,7 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('subBtn');
-            btn.innerText = '正在加密传输机密报告...';
+            btn.innerText = '正在上传全套加密情报...';
             btn.style.pointerEvents = 'none';
             btn.style.opacity = '0.7';
 
@@ -216,7 +253,7 @@
             } catch (err) {
                 alert('网络连接错误！');
             } finally {
-                btn.innerText = '[ 全套紧急报告已完成，请求发射！ ]';
+                btn.innerText = '[ 全套任务解锁，请求发射情报！ ]';
                 btn.style.pointerEvents = 'auto';
                 btn.style.opacity = '1';
             }
