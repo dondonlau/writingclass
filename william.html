@@ -1,39 +1,386 @@
-<div class="task-card" style="border-left-color: var(--alert-red);">
-                    <div class="task-title" style="color: var(--alert-red);">🚁 任务 5: 终极侦察 - 深渊凝视 (横断山脉垂直测绘)</div>
-                    <div class="dongdong-box" style="border-color: var(--alert-red); color: #fff; font-weight: normal;">
-                        <strong style="color: var(--alert-red);">💡 战术指挥中心下达写作指令：</strong><br>
-                        特工 William，大自然在横断山脉设下了最可怕的“V字型”深渊防线。现在，你正站在悬崖的最边缘，手里操控着一台“战隼”侦察无人机。指挥部为你传回了两张绝密影像：一张是无人机的高空俯拍，一张是站在悬崖边缘的第一人称视角。<br><br>
-                        👉 <b>你的写作任务：</b><br>
-                        请结合这两张侦察照片，写一份 150 字左右的《峡谷测绘报告》。你必须按照<b>“无人机镜头从山顶，垂直向下移动到谷底”</b>的空间顺序来写，让没看过照片的人，也能跟着你的文字感到头晕目眩！
-                    </div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特工终端 - William [超级蜀道突围]</title>
+    
+    <link rel="icon" type="image/png" href="logo.png?v=12.0">
+    <link rel="apple-touch-icon" href="logo.png?v=12.0">
+    <meta name="apple-mobile-web-app-title" content="特工终端">
+    <meta name="theme-color" content="#020c1b">
 
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
-                        
-                        <div style="flex: 1; min-width: 280px; border: 2px solid var(--alert-red); border-radius: 8px; overflow: hidden; position: relative;">
-                            <div style="position: absolute; top: 10px; left: 10px; background: rgba(255, 77, 77, 0.8); color: #fff; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; z-index: 10;">
-                                🔴 视角一：高空无人机俯拍
-                            </div>
-                            <img src="canyon1.jpg" alt="高空俯拍大峡谷" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.1) brightness(0.9);">
-                        </div>
-                        
-                        <div style="flex: 1; min-width: 280px; border: 2px solid var(--alert-red); border-radius: 8px; overflow: hidden; position: relative;">
-                            <div style="position: absolute; top: 10px; left: 10px; background: rgba(255, 77, 77, 0.8); color: #fff; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; z-index: 10;">
-                                🔴 视角二：第一人称悬崖凝视
-                            </div>
-                            <img src="canyon2.jpg" alt="第一人称凝视深渊" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.1) brightness(0.9);">
-                        </div>
-                        
-                    </div>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-                    <div style="background: rgba(255, 77, 77, 0.05); padding: 20px; border-radius: 8px; border: 1px dashed var(--alert-red); margin-bottom: 20px;">
-                        <p style="color: var(--alert-red); font-weight: bold; margin-top: 0;">🎥 【无人机镜头控制台 - 写作提示】</p>
-                        <ul style="color: var(--text-muted); line-height: 1.8; margin-bottom: 0;">
-                            <li><b style="color: #fff;">[镜头1 - 平视山顶]</b>：峡谷两边的绝壁是什么样的？（可用词：刀削斧劈、拔地而起、直插云霄）</li>
-                            <li><b style="color: #fff;">[镜头2 - 俯视悬崖]</b>：结合第一人称视角的照片，镜头往下推，看着脚底的万丈深渊，你有什么感觉？（可用词：头晕目眩、深不见底、令人窒息）</li>
-                            <li><b style="color: #fff;">[镜头3 - 探底大河]</b>：最底下的江水看起来像什么？声音大吗？（可用词：汹涌澎湃、咆哮的白龙、震耳欲聋）</li>
-                        </ul>
-                    </div>
+    <style>
+        :root {
+            --neon-cyan: #64ffda;
+            --dark-bg: #020c1b;
+            --panel-bg: rgba(17, 34, 64, 0.95); 
+            --text-main: #ccd6f6;
+            --text-muted: #8892b0;
+            --neon-purple: #b392f0;
+            --accent-orange: #ff9f43;
+            --alert-red: #ff4d4d;
+        }
+        
+        body { 
+            background-color: var(--dark-bg);
+            background: linear-gradient(rgba(2, 12, 27, 0.92), rgba(2, 12, 27, 0.92)), 
+                        url('bg-william.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            color: var(--text-main); margin: 0; padding: 20px; 
+            font-family: 'Courier New', 'PingFang SC', monospace; line-height: 1.6; 
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 2px solid var(--neon-cyan); padding: 15px; margin-bottom: 30px;
+            background: rgba(100, 255, 218, 0.05); border-radius: 8px;
+        }
 
-                    <textarea name="深渊凝视_作文" class="cipher-input" style="min-height: 250px; border-color: var(--alert-red);" required placeholder="横断山脉测绘报告：
-我的无人机从峡谷边缘起飞。平视前方，两边的悬崖就像是被巨斧劈开一样，拔地而起......"></textarea>
+        .mission-title-box {
+            background: var(--neon-cyan); color: var(--dark-bg); padding: 20px;
+            border-radius: 12px 12px 0 0; text-align: center; font-size: 1.8rem;
+            font-weight: bold; border: 2px solid #fff; border-bottom: none;
+            box-shadow: 0 -10px 30px rgba(100, 255, 218, 0.5); position: relative; overflow: hidden;
+        }
+
+        .mission-title-box::before {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+            transform: skewX(-25deg); animation: sweepLight 3s infinite; 
+        }
+
+        @keyframes sweepLight { 0% { left: -150%; } 30% { left: 200%; } 100% { left: 200%; } }
+
+        .mission-panel { 
+            background: var(--panel-bg); border: 3px solid var(--neon-cyan); 
+            border-radius: 0 0 12px 12px; padding: 30px; margin-bottom: 40px; 
+            backdrop-filter: blur(10px); position: relative; z-index: 5;
+        }
+
+        /* 🚀 视频安全跳转模块：使用了稳定防拦截链接 */
+        .video-redirect-box {
+            position: relative; width: 100%; height: 450px; border-radius: 8px;
+            border: 2px dashed var(--neon-purple); margin-bottom: 40px;
+            background: url('https://img.youtube.com/vi/7GRhGvMJHkA/hqdefault.jpg') center/cover no-repeat;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+        
+        .video-redirect-box::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 12, 27, 0.65); z-index: 1;
+        }
+
+        .play-btn {
+            position: relative; z-index: 10; padding: 20px 40px;
+            background: rgba(179, 146, 240, 0.2); border: 2px solid var(--neon-purple);
+            color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none;
+            border-radius: 12px; transition: 0.3s; box-shadow: 0 0 30px rgba(179, 146, 240, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .play-btn:hover {
+            background: var(--neon-purple); color: var(--dark-bg);
+            box-shadow: 0 0 50px var(--neon-purple); transform: scale(1.05);
+        }
+        
+        .task-card { margin-bottom: 45px; border-left: 5px solid var(--neon-purple); padding-left: 25px; }
+        .task-title { color: var(--neon-purple); font-weight: bold; font-size: 1.35rem; margin-bottom: 12px; }
+        
+        .dongdong-box { 
+            background: rgba(100, 255, 218, 0.07); border: 1px solid var(--neon-cyan); 
+            padding: 18px 25px; border-radius: 8px; margin: 15px 0; color: var(--neon-cyan); 
+            font-size: 1.05rem; line-height: 1.8; font-weight: bold;
+        }
+
+        .blank-group { margin-bottom: 22px; font-size: 1.15rem; color: #fff; line-height: 2; }
+        .blank-input { 
+            background: transparent; border: none; border-bottom: 2px solid var(--neon-cyan); 
+            color: var(--accent-orange); width: 160px; text-align: center; 
+            font-family: inherit; font-size: 1.15rem; font-weight: bold; outline: none; 
+            transition: 0.3s;
+        }
+        .blank-input:focus { border-bottom-color: var(--neon-purple); box-shadow: 0 4px 10px rgba(179,146,240,0.2); }
+
+        .vocab-box {
+            background: rgba(2, 12, 27, 0.5); padding: 15px; border-radius: 8px;
+            border: 1px dashed var(--neon-purple); margin-bottom: 20px;
+        }
+        .vocab-word { font-size: 1.2rem; color: #fff; font-weight: bold; background: var(--neon-purple); padding: 2px 10px; border-radius: 4px; margin-right: 10px; }
+
+        .cipher-input { 
+            width: 100%; background: rgba(2, 12, 27, 0.85); border: 1px solid #233554; 
+            color: var(--neon-cyan); padding: 20px; font-family: inherit; font-size: 1.15rem; 
+            border-radius: 8px; outline: none; resize: vertical; min-height: 150px; 
+            line-height: 1.8; box-sizing: border-box; transition: 0.4s; margin-top: 10px;
+        }
+        .cipher-input:focus { border-color: var(--neon-purple); background: rgba(2, 12, 27, 0.95); }
+
+        /* 🚀 修复设计感：让提交按钮发光且更有质感 */
+        .submit-btn { 
+            width: 100%; padding: 25px; background: transparent; border: 3px solid var(--neon-purple); 
+            color: var(--neon-purple); font-family: inherit; font-size: 1.5rem; font-weight: bold; 
+            cursor: pointer; border-radius: 8px; transition: 0.3s; letter-spacing: 4px; 
+            margin-top: 60px; /* 拉大和上面任务的间距 */
+            box-shadow: 0 0 15px rgba(179, 146, 240, 0.3);
+        }
+        .submit-btn:hover { background: var(--neon-purple); color: var(--dark-bg); box-shadow: 0 0 40px var(--neon-purple); }
+        
+        .back-home { color: var(--neon-cyan); text-decoration: none; border: 1px solid var(--neon-cyan); padding: 5px 15px; border-radius: 4px; }
+        
+        /* 地图气泡弹窗深色模式适配 */
+        .leaflet-popup-content-wrapper { background: rgba(17, 34, 64, 0.95); color: #ccd6f6; border: 1px solid var(--neon-cyan); }
+        .leaflet-popup-tip { background: rgba(17, 34, 64, 0.95); border: 1px solid var(--neon-cyan); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="back-home">🏡 冬冬姨的写作基地</a>
+            <div style="text-align: right;">
+                <span style="color:var(--neon-cyan)">特工 WILLIAM</span> | 
+                <span style="color:var(--neon-purple)">LEVEL 3 绝密档案</span>
+            </div>
+        </header>
+
+        <form id="williamForm">
+            <input type="hidden" name="特工身份" value="William Level 3">
+            <input type="hidden" name="_subject" value="【特工作业】来自 William 的超级蜀道通关报告">
+
+            <div class="mission-title-box">
+                📡 核心档案：超级蜀道突围战
+            </div>
+            
+            <div class="mission-panel">
+                
+                <div class="video-redirect-box">
+                    <a href="https://www.youtube.com/watch?v=7GRhGvMJHkA" target="_blank" class="play-btn">
+                        ▶️ 建立安全连接：前往终端观看机密影像
+                    </a>
                 </div>
+
+                <div class="task-card" style="border-left-color: var(--neon-cyan);">
+                    <div class="task-title" style="color: var(--neon-cyan);">🗺️ 战术简报：全息立体沙盘</div>
+                    <div class="dongdong-box" style="border-color: var(--neon-cyan); color: #fff; font-weight: normal;">
+                        <strong style="color: var(--neon-cyan);">💡 冬冬姨的最高战略简报：</strong><br>
+                        William，蜀道不是一条路，而是一张横跨千里的巨大网络！古人为什么要拿命去修蜀道？今天的机甲大军又为什么要打穿它？<br>
+                        1. 🛡️ <b>打破无敌防御</b>：防止坏人在盆地里关起门来当大魔王。<br>
+                        2. 💰 <b>打通资源库</b>：把“天府之国”的粮食和装备输送给全国。<br>
+                        3. 🌐 <b>文明大联网</b>：今天，超级蜀道把四川从一个封闭的孤岛，变成了连接全世界的超级路由器！<br><br>
+                        👇 <b>操作说明</b>：滑动地图。红色横线是大自然防御墙（秦岭），发光黄线是机甲突围路线（蜀道）！
+                    </div>
+                    
+                    <div id="shuMap" style="width: 100%; height: 480px; border-radius: 8px; border: 2px solid var(--neon-cyan); z-index: 1;"></div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-title">🎯 任务 1: 大地图沙盘 (四川盆地三路大突围)</div>
+                    <div class="dongdong-box">
+                        💡 冬冬姨点拨：请观看视频，补全这份横跨多个省份的《突围战报》：
+                    </div>
+                    
+                    <p style="color: #fff; font-weight: bold; margin-top: 20px;">[A路线・向北冲向陕西]</p>
+                    <textarea name="北线_秦岭" class="cipher-input" required placeholder="中间挡着哪座巨龙山脉？工程师用了什么绝招击穿它？"></textarea>
+                    
+                    <p style="color: #fff; font-weight: bold; margin-top: 20px;">[B路线・向南冲向云贵]</p>
+                    <textarea name="南线_云贵" class="cipher-input" required placeholder="视频里那座离地 100 多米的大桥叫什么？工程师让汽车在山肚子里怎么走？"></textarea>
+                    
+                    <p style="color: #fff; font-weight: bold; margin-top: 20px;">[C路线・向西冲向西藏]</p>
+                    <textarea name="西线_西藏" class="cipher-input" required placeholder="这里是峡谷群（横断山脉）。在跨越凶猛的大渡河时，施工作业人员平均一天前进多少米？"></textarea>
+                </div>
+
+                <div class="task-card" style="border-left-color: var(--accent-orange);">
+                    <div class="task-title" style="color: var(--accent-orange);">🔐 任务 2: 地理屏障特工速记墙</div>
+                    <div class="dongdong-box" style="border-color: var(--accent-orange);">
+                        💡 冬冬姨的数字密码锁：盯紧视频线索，补充这段关于地理防线的加密情报！
+                    </div>
+
+                    <div style="background: rgba(2, 12, 27, 0.4); padding: 25px; border-radius: 8px; border: 1px solid #233554;">
+                        <div class="blank-group">
+                            ⏱️ 关卡 01 (02:13)：秦岭横切在 
+                            <input type="text" name="填空_四川盆地1" class="blank-input" required placeholder="哪个盆地？"> 与 
+                            <input type="text" name="填空_关中平原" class="blank-input" required placeholder="哪个平原？"> 之间。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 02 (04:54)：云贵高原高耸，它与低洼的 
+                            <input type="text" name="填空_四川盆地2" class="blank-input" required placeholder="哪个盆地？"> 之间，海拔相差整整 2000 米。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 03 (08:05)：
+                            <input type="text" name="填空_横断山脉" class="blank-input" required placeholder="什么山脉？"> 挡在四川与 
+                            <input type="text" name="填空_青藏高原" class="blank-input" required placeholder="哪个高原？"> 之间。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 04 (08:09)：这片险峻区域，由 
+                            <input type="text" name="填空_山脉数" class="blank-input" style="width: 70px;" required placeholder="几条？"> 条山脉和 
+                            <input type="text" name="填空_大江数" class="blank-input" style="width: 70px;" required placeholder="几条？"> 条大江组成。
+                        </div>
+
+                        <div class="blank-group">
+                            ⏱️ 关卡 05 (10:10)：汹涌奔腾的 
+                            <input type="text" name="填空_大渡河" class="blank-input" required placeholder="哪条大河？"> 横切在大山之中。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-title">🎯 任务 3: 大渡河上的“超级膨胀螺丝”</div>
+                    <div class="dongdong-box">
+                        💡 冬冬姨问你：修大渡河兴康大桥时（视频 10:50 处），工程师想出绝招，把钢缆像钉子一样钉进山里面。它聪明在哪里？
+                    </div>
+                    <textarea name="M2_膨胀螺丝" class="cipher-input" required placeholder="用你自己的大白话解释一下..."></textarea>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-title">🎯 任务 4: 装备升级 (新特工词汇造句)</div>
+                    <div class="dongdong-box">
+                        💡 冬冬姨的兵工厂：请用这两个视频里学到的高级四字武器自己造句！
+                    </div>
+                    
+                    <div class="vocab-box">
+                        <span class="vocab-word">拔地而起</span> <span style="color: #ccc; font-size: 0.9rem;">(06:29处。形容建筑或山峰突然冒出来，非常有力量感)</span>
+                        <textarea name="造句_拔地而起" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="挑战：用【拔地而起】造句..."></textarea>
+                    </div>
+
+                    <div class="vocab-box">
+                        <span class="vocab-word">如履平地</span> <span style="color: #ccc; font-size: 0.9rem;">(07:11处。形容在最危险的地方走路，感觉像在散步一样轻松)</span>
+                        <textarea name="造句_如履平地" class="cipher-input" style="min-height: 100px; margin-top: 15px;" required placeholder="挑战：用【如履平地】造句..."></textarea>
+                    </div>
+                </div>
+
+                <div class="task-card" style="border-left-color: var(--alert-red);">
+                    <div class="task-title" style="color: var(--alert-red);">🚁 任务 5: 终极侦察 - 深渊凝视 (横断山脉测绘)</div>
+                    <div class="dongdong-box" style="border-color: var(--alert-red);">
+                        💡 战术指挥中心写作指令：请结合以下两张本地机密影像，按<b>从山顶垂直向下移动到谷底</b>的空间顺序来写！
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        
+                        <div style="border: 2px solid var(--alert-red); border-radius: 8px; overflow: hidden; position: relative; margin-bottom: 15px; box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);">
+                            <div style="position: absolute; top: 10px; left: 10px; background: rgba(255, 77, 77, 0.8); color: #fff; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; z-index: 10;">
+                                🔴 视角一：无人机高空俯拍 (canyon1.jpg)
+                            </div>
+                            <img src="canyon1.jpg" alt="高空俯拍大峡谷" style="width: 100%; display: block; filter: contrast(1.1) brightness(0.9);">
+                        </div>
+                        
+                        <div style="border: 2px solid var(--alert-red); border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);">
+                            <div style="position: absolute; top: 10px; left: 10px; background: rgba(255, 77, 77, 0.8); color: #fff; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; z-index: 10;">
+                                🔴 视角二：第一人称悬崖凝视 (canyon2.jpg)
+                            </div>
+                            <img src="canyon2.jpg" alt="第一人称凝视深渊" style="width: 100%; display: block; filter: contrast(1.1) brightness(0.9);">
+                        </div>
+                        
+                    </div>
+
+                    <div class="dongdong-box" style="border-style: dashed; border-color: var(--alert-red); color: var(--text-muted); font-weight: normal; margin-bottom: 20px;">
+                        <strong style="color: var(--alert-red);">🎥 【无人机镜头控制台 - 写作提示卡】</strong><br>
+                        [镜头1 - 平视山顶]：峡谷绝壁刀削斧劈，跋地而起。<br>
+                        [镜头2 - 俯视悬崖]：结合视角二，看着万丈深渊，感觉头晕目眩。<br>
+                        [镜头3 - 探底大河]：谷底大河像一条汹涌咆哮的白龙。
+                    </div>
+
+                    <textarea name="深渊凝视_作文" class="cipher-input" style="min-height: 250px; border-color: var(--alert-red);" required placeholder="横断山脉测绘报告：无从脚下山顶起飞......"></textarea>
+                </div>
+
+            </div>
+
+            <button type="submit" class="submit-btn" id="subBtn">[ 全套任务解锁，请求发射情报！ ]</button>
+        </form>
+    </div>
+
+    <div id="successModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: 0.3s;">
+        <div id="modalBox" style="background: #112240; border: 2px solid var(--neon-cyan); border-radius: 12px; padding: 40px; text-align: center; max-width: 450px; transform: scale(0.9); transition: 0.3s;">
+            <span style="font-size: 4rem; display: block; margin-bottom: 20px;">🎖️</span>
+            <h2 style="color: var(--neon-cyan);">战术目标全清！</h2>
+            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px;">特工 William，你的全套战术报告（包括突围战报、填空墙和深渊写作）已经安全上传！冬冬姨为你骄傲！</p>
+            <button onclick="closeModal()" style="background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 35px; border-radius: 4px; cursor: pointer; font-weight: bold;">[ 离开终端 ]</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 战术雷达地图初始化
+        document.addEventListener("DOMContentLoaded", function() {
+            var map = L.map('shuMap').setView([32.5, 106.5], 6);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+            }).addTo(map);
+
+            var xian = [34.3416, 108.9398];        
+            var hanzhong = [33.0776, 107.0286];    
+            var jianmenguan = [32.1908, 105.5646]; 
+            var chengdu = [30.5722, 104.0665];     
+
+            var circleIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: '<div style="background-color: var(--accent-orange); width: 14px; height: 14px; border-radius: 50%; box-shadow: 0 0 15px var(--accent-orange);"></div>',
+                iconSize: [14, 14]
+            });
+
+            L.marker(xian, {icon: circleIcon}).addTo(map).bindPopup("<b style='color:var(--neon-cyan);'>📍 起点：长安 (西安)</b>");
+            L.marker(hanzhong, {icon: circleIcon}).addTo(map).bindPopup("<b style='color:var(--neon-cyan);'>📍 中转枢纽：汉中</b>");
+            L.marker(jianmenguan, {icon: circleIcon}).addTo(map).bindPopup("<b style='color:var(--neon-cyan);'>📍 第一险关：剑门关</b>");
+            L.marker(chengdu, {icon: circleIcon}).addTo(map).bindPopup("<b style='color:var(--neon-cyan);'>📍 终点：成都</b>");
+
+            var qinlingCoords = [[34.0, 105.0], [33.8, 110.0]];
+            L.polyline(qinlingCoords, {
+                color: 'var(--alert-red)', weight: 6, opacity: 0.7
+            }).addTo(map).bindPopup("<b style='color:var(--alert-red);'>🚧 大自然防御墙：秦岭山脉</b>");
+
+            var routeCoords = [xian, hanzhong, jianmenguan, chengdu];
+            L.polyline(routeCoords, {
+                color: 'var(--accent-orange)', weight: 4, dashArray: '10, 10', opacity: 0.9
+            }).addTo(map).bindPopup("<b style='color:var(--accent-orange);'>⚡ 机甲突围路线：蜀道</b>");
+        });
+
+        // 表单提交与弹窗逻辑
+        const form = document.getElementById('williamForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('subBtn');
+            btn.innerText = '正在发射情报...';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.7';
+
+            try {
+                const response = await fetch("https://formspree.io/f/mrergerg", {
+                    method: "POST",
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    form.reset();
+                    document.getElementById('successModal').style.display = 'flex';
+                    setTimeout(() => { 
+                        document.getElementById('successModal').style.opacity = '1'; 
+                        document.getElementById('modalBox').style.transform = 'scale(1)'; 
+                    }, 50);
+                } else {
+                    alert('信道受阻，请检查网络！');
+                }
+            } catch (err) {
+                alert('网络连接错误！');
+            } finally {
+                btn.innerText = '[ 全套任务解锁，请求发射情报！ ]';
+                btn.style.pointerEvents = 'auto';
+                btn.style.opacity = '1';
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('successModal').style.opacity = '0';
+            document.getElementById('modalBox').style.transform = 'scale(0.8)';
+            setTimeout(() => { document.getElementById('successModal').style.display = 'none'; }, 400);
+        }
+    </script>
+</body>
+</html>
